@@ -3,6 +3,7 @@
         <title>@yield('title')</title>
         <link href="{{ URL::asset('css/materialize.min.css') }}" rel="stylesheet" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        @yield('moreStyles')
     </head>
     <body>
 
