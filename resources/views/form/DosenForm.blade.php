@@ -9,7 +9,7 @@ fk role -->
 @section('title', 'Tambah Dosen')
 
 @section('content')
-<form class="col s12" method="POST" action="{{ route('login') }}">
+<form class="col s12" method="POST" action="{{ route('storedosen') }}">
     {{ csrf_field() }}
     <div class="row">
         <div class="input-field col s12">
@@ -19,7 +19,7 @@ fk role -->
     </div>
     <div class="row">
         <div class="input-field col s12">
-            <input name="nip" id="nip" type="text" class="validate">
+            <input name="NIP" id="nip" type="text" class="validate">
             <label for="nip">NIP</label>
         </div>
     </div>
@@ -42,7 +42,7 @@ fk role -->
         </div>
     </div>
     <button class="btn waves-effect waves-light" type="submit" name="action">
-        Login
+        Tambah Dosen
     </button>
 </form>
 @endsection

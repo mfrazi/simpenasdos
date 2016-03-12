@@ -14,3 +14,8 @@
 Route::get('login', 'AuthController@showLogin');
 Route::post('login', ['uses' => 'AuthController@doLogin', 'as' => 'login']);
 Route::get('logout', ['uses' => 'AuthController@doLogout', 'as' => 'logout']);
+
+Route::group(['middleware' => ['auth', 'role:admin,superuser']], function(){
+    Route::get('/tambahdosen', ['uses' => 'UserController@create', 'as' => 'tambahdosen']);
+    Route::post('/tambahdosen', ['uses' => 'UserController@store', 'as' => 'storedosen']);
+});

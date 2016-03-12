@@ -11,15 +11,16 @@ use Auth;
 use Input;
 use Validator;
 
-class AuthController extends Controller
-{
+class AuthController extends Controller {
     public function showLogin()
     {
+        if (Auth::check()) {
+            return redirect('/');
+        }
         return view('form.LoginForm');
     }
 
-    public function doLogin(Request $request)
-    {
+    public function doLogin(Request $request) {
         $rules = array(
             'username' => 'required',
             'password' => 'required'
@@ -38,16 +39,16 @@ class AuthController extends Controller
                 'password'  => Input::get('password')
             );
             if(Auth::attempt($userdata)){
-                return view('beranda');
+                return redirect('tambahdosen');
             }
             else{
-                return view('form.LoginForm');
+                return redirect()->route('login');
             }
         }
     }
 
     public function doLogout(){
         Auth::logout();
-        return view('form.LoginForm');
+        return redirect('/');
     }
 }
