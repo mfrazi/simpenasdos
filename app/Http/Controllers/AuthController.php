@@ -16,7 +16,7 @@ class AuthController extends Controller
      */
     public function index()
     {
-        return view('form.PengumumanForm');
+        return view('form.PendaftarForm');
     }
 
     /**
