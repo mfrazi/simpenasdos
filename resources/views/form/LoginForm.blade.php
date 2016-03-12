@@ -3,6 +3,12 @@
 @section('title', 'Login')
 
 @section('content')
+
+<p>
+    {{ $errors->first('username') }}
+    {{ $errors->first('password') }}
+</p>
+
 <form class="col s12" method="POST" action="{{ route('login') }}">
     {{ csrf_field() }}
     <div class="row">

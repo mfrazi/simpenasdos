@@ -11,5 +11,6 @@
 |
 */
 
-Route::get('login', 'AuthController@index');
-Route::post('login', ['uses' => 'AuthController@login', 'as' => 'login']);
+Route::get('login', 'AuthController@showLogin');
+Route::post('login', ['uses' => 'AuthController@doLogin', 'as' => 'login']);
+Route::get('logout', ['uses' => 'AuthController@doLogout', 'as' => 'logout']);
