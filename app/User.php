@@ -27,8 +27,13 @@ class User extends Model implements AuthenticatableContract,
 
     public function role()
 	{
-		return $this->hasOne('App\Role', 'id', 'role_id');
+		return $this->belongsTo('App\Role', 'role_id', 'id');
 	}
+
+	public function class_rooms() {
+		return $this->belongsToMany('App\ClassRoom', 'class_room_id', 'id');
+	}
+
 	public function hasRole($roles)
 	{
 		$this->have_role = $this->getUserRole();
