@@ -8,13 +8,17 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
 
+use Auth;
 use Hash;
 use Input;
 use Validator;
 
 class UserController extends Controller{
     public function index(){
-
+        $users = User::where('role_id', '=', 1)
+                ->select('id', 'nama', 'NIP', 'username')
+                ->get();
+        return view('index.dosen', ['users' => $users]);
     }
 
     public function create(){
@@ -44,5 +48,14 @@ class UserController extends Controller{
             return redirect('/tambahdosen');
         }
 
+    }
+
+    public function edit($id){
+        $user = User::where('id', '=', $id)->first();
+        return view('form.DosenEditForm', ['user' => $user]);
+    }
+
+    public function destroy($id){
+        
     }
 }

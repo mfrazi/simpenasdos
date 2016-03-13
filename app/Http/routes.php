@@ -16,6 +16,10 @@ Route::post('login', ['uses' => 'AuthController@doLogin', 'as' => 'login']);
 Route::get('logout', ['uses' => 'AuthController@doLogout', 'as' => 'logout']);
 
 Route::group(['middleware' => ['auth', 'role:admin,superuser']], function(){
+    Route::get('/dosen', ['uses' => 'UserController@index', 'as' => 'dosen']);
     Route::get('/tambahdosen', ['uses' => 'UserController@create', 'as' => 'tambahdosen']);
     Route::post('/tambahdosen', ['uses' => 'UserController@store', 'as' => 'storedosen']);
+    Route::get('/ubahdosen/{id}', ['uses' => 'UserController@edit', 'as' => 'ubahdosen']);
+    Route::post('/ubahdosen', ['uses' => 'UserController@update', 'as' => 'updatedosen']);
+    Route::post('/hapusdosen/{id}', ['uses' => 'UserController@destroy', 'as' => 'hapusdosen']);
 });

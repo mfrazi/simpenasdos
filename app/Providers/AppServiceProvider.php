@@ -4,8 +4,11 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
+use Auth;
+
 class AppServiceProvider extends ServiceProvider
 {
+    private $nama;
     /**
      * Bootstrap any application services.
      *
