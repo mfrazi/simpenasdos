@@ -12,8 +12,8 @@ class CreateClassesTable extends Migration
      */
     public function up()
     {
-        if(!(Schema::hasTable('classes'))){
-            Schema::create('classes', function (Blueprint $table) {
+        if(!(Schema::hasTable('class_rooms'))){
+            Schema::create('class_rooms', function (Blueprint $table) {
                 $table->increments('id');
                 $table->string('name')->unique();
                 $table->timestamps();
