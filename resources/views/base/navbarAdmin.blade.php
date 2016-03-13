@@ -1,5 +1,5 @@
 <nav>
-    <div class="nav-wrapper">
+    <div class="nav-wrapper light-blue">
         <a href="#" class="brand-logo">Logo</a>
             <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="{{ route('dosen') }}">Dosen</a></li>
