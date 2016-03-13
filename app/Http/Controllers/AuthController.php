@@ -42,13 +42,15 @@ class AuthController extends Controller {
                 return redirect('tambahdosen');
             }
             else{
-                return redirect()->route('login');
+                return view('form.LoginForm')
+                        ->withErrors(['Username atau Password yang dimasukkan salah'])
+                        ->withInput(Input::except('password'));
             }
         }
     }
 
     public function doLogout(){
         Auth::logout();
-        return redirect('/');
+        return redirect('/login');
     }
 }

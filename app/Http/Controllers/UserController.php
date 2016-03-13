@@ -38,9 +38,6 @@ class UserController extends Controller{
         }
         else{
             $user = new User(Input::all());
-            // $user->nama = Input::get('nama');
-            // $user->NIP = Input::get('NIP');
-            // $user->username = Input::get('username');
             $user->password = Hash::make(Input::get('password'));
             $user->role_id = 1;
             $user->save();
