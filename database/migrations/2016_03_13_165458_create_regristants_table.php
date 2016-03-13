@@ -19,8 +19,8 @@ class CreateRegristantsTable extends Migration
                 $table->string('name');
                 $table->integer('gpa');
                 $table->string('mark');
-                $table->integer('class_id')->unsigned();
-                $table->foreign('class_id')->references('id')->on('classes');
+                $table->integer('classroom_id')->unsigned();
+                $table->foreign('classroom_id')->references('id')->on('classrooms');
                 $table->timestamps();
             });
         }

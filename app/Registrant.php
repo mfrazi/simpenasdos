@@ -8,7 +8,7 @@ class Registrant extends Model
 {
 	protected $table = 'registrants';
 	protected $fillable = ['nrp', 'name', 'gpa', 'mark'];
-	public function _class() {
-		return $this->belongsTo('App\ClassRoom', 'class_room_id', 'id');
+	public function classrooms() {
+		return $this->belongsTo('App\ClassRoom', 'classroom_id', 'id');
 	}
 }
