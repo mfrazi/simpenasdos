@@ -8,6 +8,10 @@ fk role -->
 
 @section('title', 'Tambah Dosen')
 
+@section('navbar')
+    @include('base.navbarAdmin')
+@endsection
+
 @section('content')
 <form class="col s12" method="POST" action="{{ route('storedosen') }}">
     {{ csrf_field() }}
