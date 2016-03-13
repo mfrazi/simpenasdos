@@ -16,7 +16,7 @@ class CreateClassUserTable extends Migration
             Schema::create('class_user', function (Blueprint $table) {
                 $table->increments('id');
                 $table->integer('class_room_id')->unsigned();
-                $table->foreign('class_room_id')->references('id')->on('class_room');
+                $table->foreign('class_room_id')->references('id')->on('class_rooms');
                 $table->integer('user_id')->unsigned();
                 $table->foreign('user_id')->references('id')->on('users');
                 $table->timestamps();
