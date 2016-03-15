@@ -23,7 +23,7 @@
                         <div class="row">
                             <div class="input-field col s12">
                                 <i class="material-icons prefix light-blue-text">account_circle</i>
-                                <input name="username" id="username" type="text" class="validate" required="" aria-required="true">
+                                <input autofocus="autofocus" name="username" id="username" type="text" class="validate" required="" aria-required="true">
                                 <label for="username">Username</label>
                             </div>
                         </div>

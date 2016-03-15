@@ -1,9 +1,3 @@
-<!-- id
-nama
-NIP
-username
-password
-fk role -->
 @extends('base.base')
 
 @section('title', 'Tambah Dosen')
@@ -16,7 +10,24 @@ fk role -->
 <br />
 <br />
 <div class="row container">
-    <form class="col s10 push-s1 m6 push-m3 l6 push-l3" method="POST" action="{{ route('storedosen') }}">
+    @if(Session::has('success') || Session::has('fail'))
+        <div class="row center">
+            <div class="col s10 push-s1 m6 push-m3 l6 push-l3">
+                @if(Session::has('success'))
+                <div class="card-panel light-blue">
+                    <span class="white-text">{{ Session::get('success') }}</span>
+                </div>
+                @endif
+                @if(Session::has('fail'))
+                <div class="card-panel red accent-2">
+                    <span class="white-text">{{ Session::get('fail') }}</span>
+                </div>
+                @endif
+            </div>
+        </div>
+    @endif
+
+    <form class="col s10 push-s1 m8 push-m2 l6 push-l3" method="POST" action="{{ route('dosen.store') }}">
         {{ csrf_field() }}
         <div class="row">
             <div class="input-field col s12">
@@ -32,7 +43,7 @@ fk role -->
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <input name="username" id="username" type="text" required="" aria-required="true">
+                <input placeholder="Default sama dengan NIP" name="username" id="username" type="text" required="" aria-required="true">
                 <label for="username">Username</label>
             </div>
         </div>
@@ -49,8 +60,8 @@ fk role -->
                 <div id="checkpassword"></div>
             </div>
         </div>
-        <a href="{{ route('dosen') }}"}} class="btn waves-effect red accent-2 left">
-            Batal
+        <a href="{{ route('dosen.index') }}"}} class="btn waves-effect red accent-2 left">
+            Kembali
         </a>
         <button id="submitButton" class="btn waves-effect light-blue right" type="submit">
             Tambah
@@ -60,28 +71,5 @@ fk role -->
 @endsection
 
 @section('moreScripts')
-<script>
-$("#nip").keyup(function(){
-    $("#username").val(this.value);
-});
-
-function checkPasswordMatch() {
-    var password = $("#password").val();
-    var confirmPassword = $("#repassword").val();
-
-    if (password != confirmPassword){
-        $("#checkpassword").html('<div class="red-text text-accent-1">Password tidak sama</div>');
-        $("#submitButton").attr('disabled', true);
-    }
-    else {
-        $("#checkpassword").html('');
-        $("#submitButton").attr('disabled', false);
-    }
-}
-
-$(document).ready(function () {
-   $("#repassword").keyup(checkPasswordMatch);
-   $("#password").keyup(checkPasswordMatch);
-});
-</script>
+<script src="{{ URL::asset('js/dosencreate.js') }}"></script>
 @endsection

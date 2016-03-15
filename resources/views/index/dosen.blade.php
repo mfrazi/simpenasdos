@@ -15,9 +15,22 @@ fk role -->
 @section('content')
 <br />
 <br />
+
+@if(Session::has('success'))
+    <div class="row center">
+        <div class="col s10 push-s1 m6 push-m3 l6 push-l3">
+            @if(Session::has('success'))
+            <div class="card-panel red accent-2">
+                <span class="white-text">{{ Session::get('success') }}</span>
+            </div>
+            @endif
+        </div>
+    </div>
+@endif
+
 <div class="container">
     <div class="row">
-        <a class="black-text" href="{{ route('tambahdosen') }}"><i class="material-icons left">note_add</i>Tambah Dosen</a>
+        <a class="black-text" href="{{ route('dosen.create') }}"><i class="material-icons left">note_add</i>Tambah Dosen</a>
     </div>
 </div>
 <div class="container">
@@ -41,8 +54,8 @@ fk role -->
                     <td>{{ $user->nama }}</td>
                     <td>{{ $user->NIP }}</td>
                     <td>{{ $user->username }}</td>
-                    <td class="center"><a href="{{ route('ubahdosen', ['id' => $user->id]) }}"><i class="material-icons">mode_edit</i></a></td>
-                    <td class="center"><a href="{{ route('hapusdosen', ['id' => $user->id]) }}"><i class="material-icons">delete</i></a></td>
+                    <td class="center"><a href="{{ route('dosen.edit', ['dosen' => $user->id]) }}"><i class="material-icons">mode_edit</i></a></td>
+                    <td class="center"><a class="red-text" href="{{ route('dosen.destroy', ['dosen' => $user->id]) }}"><i class="material-icons">delete</i></a></td>
                 </tr>
             @endforeach
         </tbody>

@@ -39,7 +39,11 @@ class AuthController extends Controller {
                 'password'  => Input::get('password')
             );
             if(Auth::attempt($userdata)){
-                return redirect('tambahdosen');
+                $role = Auth::user()->role_id;
+                if($role==1)
+                    return redirect()->route('berandadosen');
+                else if($role==2)
+                    return redirect()->route('berandaadmin');
             }
             else{
                 return view('form.LoginForm')
