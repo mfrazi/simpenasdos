@@ -31,8 +31,8 @@
         {{ csrf_field() }}
         <div class="row">
             <div class="input-field col s12">
-                <input name="nama" id="nama" type="text" required="" aria-required="true">
-                <label for="nama">Nama</label>
+                <input name="name" id="name" type="text" required="" aria-required="true">
+                <label for="name">Nama</label>
             </div>
         </div>
         <div class="row">

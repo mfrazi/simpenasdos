@@ -1,4 +1,4 @@
-nama
+name
 nrp
 nilai
 view transkrip

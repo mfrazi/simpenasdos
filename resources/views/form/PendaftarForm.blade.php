@@ -15,8 +15,8 @@ status (default belum diterima) -->
     {{ csrf_field() }}
     <div class="row">
         <div class="input-field col s12">
-            <input name="nama" id="nama" type="text" class="validate">
-            <label for="nama">Nama</label>
+            <input name="name" id="name" type="text" class="validate">
+            <label for="name">Nama</label>
         </div>
     </div>
     <div class="row">

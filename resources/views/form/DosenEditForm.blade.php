@@ -36,8 +36,8 @@
         {{ csrf_field() }}
         <div class="row">
             <div class="input-field col s12">
-                <input value="{{ $user->nama }}" name="nama" id="nama" type="text" class="validate">
-                <label for="nama">Nama</label>
+                <input value="{{ $user->name }}" name="name" id="name" type="text" class="validate">
+                <label for="name">Nama</label>
             </div>
         </div>
         <div class="row">

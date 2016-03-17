@@ -13,19 +13,19 @@ function checkPasswordMatch() {
 }
 
 function check(id) {
-    var nama = $("#nama").val().length;
+    var name = $("#name").val().length;
     var nip = $("#nip").val().length;
     var username = $("#username").val().length;
-    if (nama === 0 || nip === 0 || username === 0){
+    if (name === 0 || nip === 0 || username === 0){
         $("#submitButton").attr('disabled', true);
     }
-    else if(nama != 0 || nip != 0 || username != 0){
+    else if(name != 0 || nip != 0 || username != 0){
         $("#submitButton").attr('disabled', false);
     }
 }
 
 $(document).ready(function () {
-    $("#nama").keyup(check);
+    $("#name").keyup(check);
     $("#nip").keyup(check);
     $("#username").keyup(check);
     $("#repassword").keyup(checkPasswordMatch);

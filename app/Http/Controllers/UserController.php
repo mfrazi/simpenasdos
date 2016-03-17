@@ -17,7 +17,7 @@ use Validator;
 class UserController extends Controller{
     public function index(){
         $users = User::where('role_id', '=', 1)
-                ->select('id', 'nama', 'NIP', 'username')
+                ->select('id', 'name', 'NIP', 'username')
                 ->get();
         return view('index.dosen', ['users' => $users]);
     }
@@ -28,7 +28,7 @@ class UserController extends Controller{
 
     public function store(){
         $rules = array(
-            'nama' => 'required',
+            'name' => 'required',
             'NIP' => 'required',
             'username' => 'required',
             'password' => 'required',
@@ -66,7 +66,7 @@ class UserController extends Controller{
 
     public function update($id){
         $rules = array(
-            'nama' => 'required',
+            'name' => 'required',
             'NIP' => 'required',
             'username' => 'required'
         );
@@ -87,7 +87,7 @@ class UserController extends Controller{
             else{
                 $user = User::find($id);
                 $password = Input::get('password');
-                $user->nama = Input::get('nama');
+                $user->name = Input::get('name');
                 $user->NIP = Input::get('NIP');
                 $user->username = Input::get('username');
                 if($password){

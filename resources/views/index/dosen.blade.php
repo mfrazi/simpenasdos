@@ -1,5 +1,5 @@
 <!-- id
-nama
+name
 NIP
 username
 password
@@ -51,7 +51,7 @@ fk role -->
         <tbody>
             @foreach ($users as $user)
                 <tr>
-                    <td>{{ $user->nama }}</td>
+                    <td>{{ $user->name }}</td>
                     <td>{{ $user->NIP }}</td>
                     <td>{{ $user->username }}</td>
                     <td class="center"><a href="{{ route('dosen.edit', ['dosen' => $user->id]) }}"><i class="material-icons">mode_edit</i></a></td>

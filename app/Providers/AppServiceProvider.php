@@ -8,7 +8,6 @@ use Auth;
 
 class AppServiceProvider extends ServiceProvider
 {
-    private $nama;
     /**
      * Bootstrap any application services.
      *

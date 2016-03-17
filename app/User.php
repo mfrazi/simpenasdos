@@ -22,7 +22,7 @@ class User extends Model implements AuthenticatableContract,
      * @var string
      */
     protected $table = 'users';
-    protected $fillable = ['nama', 'NIP', 'username'];
+    protected $fillable = ['name', 'NIP', 'username'];
     protected $hidden = ['password', 'remember_token'];
 
     public function role()

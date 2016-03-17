@@ -44,11 +44,11 @@ class Authenticate
             }
         }
 
-        $nama = "";
+        $name = "";
         if(Auth::check()){
-            $nama = Auth::user()->nama;
+            $name = Auth::user()->name;
         }
-        view()->share('nama', $nama);
+        view()->share('name', $name);
 
         return $next($request);
     }
