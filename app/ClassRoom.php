@@ -4,11 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ClassRoom extends Model
+class Classroom extends Model
 {
     protected $table = 'classrooms';
 	protected $fillable = ['name'];
-	public function users() {
-		return $this->belongsToMany('App\User', 'user_id', 'id');
+
+	public function matkul() {
+		return $this->belongsTo('App\Matkul', 'matkul_id', 'id');
+	}
+    public function classuser() {
+		return $this->hasMany('App\Classuser', 'classroom_id', 'id');
 	}
 }

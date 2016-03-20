@@ -31,7 +31,7 @@ class User extends Model implements AuthenticatableContract,
 	}
 
 	public function classrooms() {
-		return $this->belongsToMany('App\ClassRoom', 'classroom_id', 'id');
+		return $this->hasMany('App\ClassRoom', 'classroom_id', 'id');
 	}
 
 	public function hasRole($roles)

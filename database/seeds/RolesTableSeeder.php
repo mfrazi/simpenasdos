@@ -18,6 +18,9 @@ class RolesTableSeeder extends Seeder
             'type' => 'admin'
         ]);
         DB::table('roles')->insert([
+            'type' => 'kaprodi'
+        ]);
+        DB::table('roles')->insert([
             'type' => 'superuser'
         ]);
     }

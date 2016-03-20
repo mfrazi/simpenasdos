@@ -7,79 +7,61 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Classroom;
+use App\Classuser;
+use App\Matkul;
+use App\User;
+
+use Input;
+use Session;
+
 class KelasController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $kelas = Classroom::with('matkul')->groupBy('matkul_id')->select('matkul_id')->get();
+        //return $kelas;
+        return view('index.kelas', ['kelas' => $kelas]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        $matkuls = Matkul::all();
+        return view('form.KelasForm', ['matkuls' => $matkuls]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store()
     {
-        //
+        $kelas = Matkul::find(Input::get('kelas'))->name;
+        $jumlah = intval(Input::get('jumlah'))+64;
+        for($i=65; $i<=$jumlah; $i++){
+            $data = $kelas." ".chr($i);
+            $class = new Classroom();
+            $class->name = $data;
+            $class->matkul_id = Input::get('kelas');
+            $class->save();
+        }
+        Session::flash('success', 'Kelas baru berhasil ditambahkan');
+        return redirect()->route('kelas.create');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
-        //
+        $classroom = Classroom::where('matkul_id','=',$id)->with('classuser')->get();
+        $dosen = User::select('id','name')->where('role_id', '=', 1)->get();
+        return view('show.kelas', ['kelas' => $classroom, 'dosen' => $dosen]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update()
     {
-        //
+        return Input::all();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

@@ -22,6 +22,9 @@ Route::group(['middleware' => ['auth', 'role:admin,superuser']], function(){
     Route::resource('dosen', 'UserController', ['except' => ['show', 'update', 'destroy']]);
     Route::post('dosen/{dosen}/update', ['uses' => 'UserController@update', 'as' => 'dosen.update']);
     Route::get('dosen/{dosen}/destroy', ['uses' => 'UserController@destroy', 'as' => 'dosen.destroy']);
+
+    Route::resource('kelas', 'KelasController', ['except' => ['update', 'destroy']]);
+    Route::post('kelas/update', ['uses' => 'KelasController@update', 'as' => 'kelas.update']);
 });
 
 Route::group(['middleware' => ['auth', 'role:dosen,superuser']], function(){
