@@ -30,7 +30,7 @@ fk role -->
 
 <div class="container">
     <div class="row">
-        <a class="black-text" href="{{ route('dosen.create') }}"><i class="material-icons left">note_add</i>Tambah Dosen</a>
+        <a class="black-text" href="{{ route('dosen.create') }}"><i class="material-icons left">add</i>Tambah Dosen</a>
     </div>
 </div>
 <div class="container">

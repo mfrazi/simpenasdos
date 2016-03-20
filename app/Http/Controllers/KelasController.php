@@ -59,7 +59,36 @@ class KelasController extends Controller
 
     public function update()
     {
-        return Input::all();
+        $data = Input::all();
+        $kelas_id="";
+        foreach($data as $key => $value){
+            if($kelas_id != "" && strpos($key, 'kelasid') !== false){
+                $classuser = Classuser::where('classroom_id', '=', $kelas_id)->get();
+                if(!empty($classuser)){
+                    Classuser::where('classroom_id', '=', $kelas_id)->delete();
+                }
+                $kelas_id=$value;
+            }
+            elseif(strpos($key, 'kelasid') !== false){
+                echo 'id_kelas '.$value;
+                $kelas_id = $value;
+            }
+            elseif (strpos($key, 'dosen') !== false) {
+                $classuser = Classuser::where('classroom_id', '=', $kelas_id)->get();
+                if(!empty($classuser)){
+                    Classuser::where('classroom_id', '=', $kelas_id)->delete();
+                }
+                foreach ($value as $dosen) {
+                    $classuser = new Classuser();
+                    $classuser->classroom_id = $kelas_id;
+                    $classuser->user_id = $dosen;
+                    $classuser->save();
+                }
+                $kelas_id="";
+            }
+        }
+        Session::flash('success', 'Data kelas berhasil diubah');
+        return redirect()->back();
     }
 
     public function destroy($id)

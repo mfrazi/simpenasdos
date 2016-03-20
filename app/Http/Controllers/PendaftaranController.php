@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Classroom;
+
+use Input;
+
 class PendaftaranController extends Controller
 {
     /**
@@ -19,25 +23,17 @@ class PendaftaranController extends Controller
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        $classrooms = Classroom::select('id', 'name')->get();
+        //return $classroom;
+        return view('form.PendaftarForm', ['classrooms' => $classrooms]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $data = Input::all();
+        return $data;
     }
 
     /**

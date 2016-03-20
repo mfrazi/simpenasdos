@@ -11,6 +11,11 @@
 |
 */
 
+Route::get('/', ['uses' => 'BerandaController@umum', 'as' => 'berandaumum']);
+
+Route::get('daftar', ['uses' => 'PendaftaranController@create', 'as' => 'daftar.create']);
+Route::post('daftar', ['uses' => 'PendaftaranController@store', 'as' => 'daftar.store']);
+
 Route::get('login', 'AuthController@showLogin');
 Route::post('login', ['uses' => 'AuthController@doLogin', 'as' => 'login']);
 Route::get('logout', ['uses' => 'AuthController@doLogout', 'as' => 'logout']);

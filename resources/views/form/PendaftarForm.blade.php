@@ -1,62 +1,47 @@
-<!-- id
-Nama
-NRP
-IPK
-fk kelas < tidak perlu di database, di table pilih kelas aja
-nilai kelas
-path file transkip
-status (default belum diterima) -->
 @extends('base.base')
 
 @section('title', 'Daftar Asisten')
 
+@section('navbar')
+    @include('base.navbarUmum')
+@endsection
+
 @section('content')
-<form class="col s12" method="POST" action="{{ route('login') }}">
+<br />
+<br />
+<div class="row container">
+<form class="col s10 push-s1 m8 push-m2 l8 push-l2" method="POST" action="{{ route('daftar.store') }}">
     {{ csrf_field() }}
     <div class="row">
         <div class="input-field col s12">
-            <input name="name" id="name" type="text" class="validate">
+            <input name="name" id="name" type="text" class="validate" required="" aria-required="true">
             <label for="name">Nama</label>
         </div>
     </div>
     <div class="row">
         <div class="input-field col s12">
-            <input name="nrp" id="nrp" type="text" class="validate">
+            <input name="NRP" id="nrp" type="text" class="validate" required="" aria-required="true">
             <label for="nrp">NRP</label>
         </div>
     </div>
     <div class="row">
         <div class="input-field col s12">
-            <input name="ipk" id="ipk" type="text" class="validate">
+            <input name="ipk" id="ipk" type="number" step="0.01" min="0" max="4" class="validate" required="" aria-required="true">
             <label for="ipk">IPK</label>
         </div>
     </div>
 
     <div class="row">
-        <div class="input-field col s6">
+        <div class="input-field col s12 m3 l9">
             <select name="kelas1">
                 <option value="" disabled selected>Pilih Kelas</option>
-                <option value="1">Kelas 1</option>
-                <option value="2">Kelas 2</option>
-                <option value="3">Kelas 3</option>
+                @foreach($classrooms as $classroom)
+                    <option value="{{ $classroom->id }}">{{ $classroom->name }}</option>
+                @endforeach
             </select>
         </div>
-        <div class="input-field col s6">
-            <input name="nilai2" id="nilai1" type="text" class="validate" />
-            <label>Nilai Kelas</label>
-        </div>
-    </div>
-    <div class="row">
-        <div class="input-field col s6">
-            <select name="kelas2">
-                <option value="" disabled selected>Pilih Kelas</option>
-                <option value="1">Kelas 1</option>
-                <option value="2">Kelas 2</option>
-                <option value="3">Kelas 3</option>
-            </select>
-        </div>
-        <div class="input-field col s6">
-            <input name="nilai2" id="nilai2" type="text" class="validate" />
+        <div class="input-field col s12 m3 l3">
+            <input name="nilai2" id="nilai1" type="text"class="validate" required="" aria-required="true">
             <label>Nilai Kelas</label>
         </div>
     </div>
@@ -70,10 +55,11 @@ status (default belum diterima) -->
             <input class="file-path validate" type="text">
         </div>
     </div>
-    <button class="btn waves-effect waves-light" type="submit" name="action">
+    <button class="btn waves-effect waves-light center" type="submit">
         Daftar
     </button>
 </form>
+</div>
 @endsection
 
 @section('moreScripts')
