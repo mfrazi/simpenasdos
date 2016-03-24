@@ -11,7 +11,7 @@ class MatkulsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('matkuls')->insert([
+        DB::table('courses')->insert([
             ['name' => 'Aljabar Linear'],
             ['name' => 'Dasar Pemrograman'],
             ['name' => 'Pemrograman Berorientasi Objek'],
