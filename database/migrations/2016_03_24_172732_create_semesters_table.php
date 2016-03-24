@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMatkulsTable extends Migration
+class CreateSemestersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,12 @@ class CreateMatkulsTable extends Migration
      */
     public function up()
     {
-        if(!(Schema::hasTable('courses'))){
-            Schema::create('courses', function (Blueprint $table) {
+        if(!(Schema::hasTable('semesters'))){
+            Schema::create('semesters', function (Blueprint $table) {
                 $table->increments('id');
-                $table->string('name')->unique();
+                $table->string('name');
+                $table->integer('year')->unsigned();
+                $table->timestamps();
             });
         }
     }
@@ -27,6 +29,6 @@ class CreateMatkulsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('matkuls');
+        //
     }
 }
