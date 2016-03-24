@@ -10,7 +10,7 @@
 <br />
 <br />
 <div class="row container">
-<form class="col s10 push-s1 m8 push-m2 l8 push-l2" method="POST" action="{{ route('daftar.store') }}">
+<form class="col s10 push-s1 m8 push-m2 l8 push-l2" method="POST" action="{{ route('daftar.store') }}" enctype="multipart/form-data">
     {{ csrf_field() }}
     <div class="row">
         <div class="input-field col s12">
@@ -33,7 +33,7 @@
 
     <div class="row">
         <div class="input-field col s12 m3 l9">
-            <select name="kelas1">
+            <select name="kelas">
                 <option value="" disabled selected>Pilih Kelas</option>
                 @foreach($classrooms as $classroom)
                     <option value="{{ $classroom->id }}">{{ $classroom->name }}</option>
@@ -41,7 +41,7 @@
             </select>
         </div>
         <div class="input-field col s12 m3 l3">
-            <input name="nilai2" id="nilai1" type="text"class="validate" required="" aria-required="true">
+            <input name="nilai" id="nilai" type="text"class="validate" required="" aria-required="true">
             <label>Nilai Kelas</label>
         </div>
     </div>
@@ -49,7 +49,7 @@
     <div class="file-field input-field">
         <div class="btn">
             <span>Transkrip</span>
-            <input name="file" type="file">
+            <input name="transkrip" type="file">
         </div>
             <div class="file-path-wrapper">
             <input class="file-path validate" type="text">

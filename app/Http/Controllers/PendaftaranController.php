@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Classroom;
 
 use Input;
+use Validator;
 
 class PendaftaranController extends Controller
 {
@@ -32,8 +33,22 @@ class PendaftaranController extends Controller
 
     public function store(Request $request)
     {
-        $data = Input::all();
-        return $data;
+        $rules = [
+            'transkrip' => 'required|mimes:c,cpp'
+        ];
+
+        //$data = Input::all();
+        $transkrip = Input::file('transkrip');
+        $file_name = $transkrip->getClientOriginalName();
+
+        $validator = Validator::make(Input::all(), $rules);
+        if($validator->fails()){
+            return $this->errors(['message'=>'salah']);
+        }
+        $destination_path = storage_path().'/transkrip';
+        if(!$transkrip->move($destination_path, $file_name)){
+            return $this->errors(['message'=>'salah2']);
+        }
     }
 
     /**
