@@ -9,6 +9,6 @@ class Course extends Model
     protected $table = 'courses';
 
     public function classroom() {
-		return $this->hasMany('App\ClassRoom', 'matkul_id', 'id');
+		return $this->hasMany('App\ClassRoom', 'course_id', 'id');
 	}
 }

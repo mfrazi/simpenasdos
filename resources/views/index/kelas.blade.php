@@ -1,3 +1,4 @@
+
 @extends('base.base')
 
 @section('title', 'Kelas')
@@ -30,11 +31,11 @@
 <div class="container">
     <div class="row">
         <div class="col s12 m8 l8 push-m2 push-l2">
-            @foreach($kelas as $k)
-            <a href="{{ route('kelas.show', ['kelas' => $k->matkul_id]) }}">
+            @foreach($classroom as $k)
+            <a href="{{ route('kelas.show', ['kelas' => $k->course_id]) }}">
                 <div class="card-panel light-blue darken-1">
                     <span class="white-text">
-                        {{ $k->matkul->name }}
+                        {{ $k->course->name }}
                     </span>
                 </div>
             </a>
