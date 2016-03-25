@@ -20,6 +20,12 @@ Route::get('login', 'AuthController@showLogin');
 Route::post('login', ['uses' => 'AuthController@doLogin', 'as' => 'login']);
 Route::get('logout', ['uses' => 'AuthController@doLogout', 'as' => 'logout']);
 
+Route::group(['middleware' => ['auth', 'role:kaprodi,dosen']], function(){
+    Route::get('berandadosen', ['uses' => 'BerandaController@dosen', 'as' => 'berandadosen']);
+    Route::get('pilihasdos', ['uses' => 'PilihAsdosController@index', 'as' => 'pilihasdos.index']);
+    Route::post('pilihasdos', ['uses' => 'PilihAsdosController@update', 'as' => 'pilihasdos.update']);
+});
+
 Route::group(['middleware' => ['auth', 'role:admin,superuser']], function(){
     Route::get('berandaadmin', ['uses' => 'BerandaController@admin', 'as' => 'berandaadmin']);
 
@@ -32,8 +38,4 @@ Route::group(['middleware' => ['auth', 'role:admin,superuser']], function(){
     Route::post('kelas/update', ['uses' => 'KelasController@update', 'as' => 'kelas.update']);
 
     Route::resource('pengumuman', 'PengumumanController', ['except' => ['show', 'update', 'destroy']]);
-});
-
-Route::group(['middleware' => ['auth', 'role:dosen,superuser']], function(){
-    Route::get('berandadosen', ['uses' => 'BerandaController@dosen', 'as' => 'berandadosen']);
 });

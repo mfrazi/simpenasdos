@@ -16,8 +16,8 @@ class BerandaController extends Controller
             $name = Auth::user()->name;
             view()->share('name', $name);
             $role = Auth::user()->role_id;
-            if($role==1)
-                return redirect()->route('dosenadmin');
+            if($role==1 || $role==3)
+                return redirect()->route('berandadosen');
             elseif($role==2)
                 return redirect()->route('berandaadmin');
         }
@@ -32,5 +32,9 @@ class BerandaController extends Controller
 
     public function dosen(){
         return view('beranda.berandaDosen');
+    }
+
+    public function kaprodi(){
+        return view('beranda.berandaKaprodi');
     }
 }
