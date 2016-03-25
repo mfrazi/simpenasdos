@@ -32,8 +32,8 @@
         <div class="row">
             <div class="input-field col s12 m8 l8">
                 <select id="kelas" name="kelas">
-                    @foreach($matkuls as $matkul)
-                    <option value="{{ $matkul->id }}">{{ $matkul->name }}</option>
+                    @foreach($courses as $course)
+                    <option value="{{ $matkul->id }}">{{ $course->name }}</option>
                     @endforeach
                 </select>
                 <label>

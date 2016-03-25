@@ -31,7 +31,7 @@
 <div class="container">
     <div class="row">
         <div class="col s12 m8 l8 push-m2 push-l2">
-            @foreach($classroom as $k)
+            @foreach($classrooms as $k)
             <a href="{{ route('kelas.show', ['kelas' => $k->course_id]) }}">
                 <div class="card-panel light-blue darken-1">
                     <span class="white-text">

@@ -30,6 +30,8 @@ Route::group(['middleware' => ['auth', 'role:admin,superuser']], function(){
 
     Route::resource('kelas', 'KelasController', ['except' => ['update', 'destroy']]);
     Route::post('kelas/update', ['uses' => 'KelasController@update', 'as' => 'kelas.update']);
+
+    Route::resource('pengumuman', 'PengumumanController', ['except' => ['show', 'update', 'destroy']]);
 });
 
 Route::group(['middleware' => ['auth', 'role:dosen,superuser']], function(){

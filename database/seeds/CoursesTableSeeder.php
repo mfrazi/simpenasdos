@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class MatkulsTableSeeder extends Seeder
+class CoursesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

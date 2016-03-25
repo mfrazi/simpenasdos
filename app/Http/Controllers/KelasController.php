@@ -26,7 +26,7 @@ class KelasController extends Controller
     public function create()
     {
         $courses = Course::all();
-        return view('form.KelasForm', ['matkuls' => $courses]);
+        return view('form.KelasForm', ['courses' => $courses]);
     }
 
     public function store()
@@ -38,6 +38,8 @@ class KelasController extends Controller
             $class = new Classroom();
             $class->name = $data;
             $class->course_id = Input::get('kelas');
+            // Ini cuma buat nyoba
+            $class->semester_id = 1;
             $class->save();
         }
         Session::flash('success', 'Kelas baru berhasil ditambahkan');
