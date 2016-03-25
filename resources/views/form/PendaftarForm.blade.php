@@ -41,7 +41,7 @@
             </select>
         </div>
         <div class="input-field col s12 m3 l3">
-            <input name="nilai" id="nilai" type="text"class="validate" required="" aria-required="true">
+            <input name="nilai" id="nilai" type="text" class="validate" required="" aria-required="true">
             <label>Nilai Kelas</label>
         </div>
     </div>

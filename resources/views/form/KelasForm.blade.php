@@ -33,7 +33,7 @@
             <div class="input-field col s12 m8 l8">
                 <select id="kelas" name="kelas">
                     @foreach($courses as $course)
-                    <option value="{{ $matkul->id }}">{{ $course->name }}</option>
+                    <option value="{{ $course->id }}">{{ $course->name }}</option>
                     @endforeach
                 </select>
                 <label>
