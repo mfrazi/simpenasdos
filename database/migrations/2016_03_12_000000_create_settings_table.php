@@ -5,11 +5,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateSettingsTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         if(!(Schema::hasTable('settings'))){
@@ -22,11 +17,6 @@ class CreateSettingsTable extends Migration
         }
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::drop('settings');

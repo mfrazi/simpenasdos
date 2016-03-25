@@ -5,11 +5,6 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateClassesTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         if(!(Schema::hasTable('classrooms'))){
@@ -25,13 +20,8 @@ class CreateClassesTable extends Migration
         }
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
-        //
+        Schema::drop('classrooms');
     }
 }
