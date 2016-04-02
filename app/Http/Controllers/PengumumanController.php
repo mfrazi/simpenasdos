@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use App\Announcement;
 
+use Auth;
 use Input;
 
 class PengumumanController extends Controller
@@ -26,7 +27,24 @@ class PengumumanController extends Controller
     public function store(Request $request)
     {
         $pengumuman = Input::all();
-        return $pengumuman;
+        $files = Input::file('file');
+
+        $announ = new Announcement();
+        $announ->title = $pengumuman['title'];
+        $announ->content = $pengumuman['content'];
+        $announ->user_id = Auth::user()->id;
+        $announ->save();
+
+        $destination_path = public_path().'/filepengumuman';
+        $count = 1;
+        foreach ($files as $file){
+            $file_name = $announ->id.'pengumuman'.(string)$count.'.'.$file->getClientOriginalExtension();
+            $file->move($destination_path, $file_name);
+            echo $file_name;
+            $count = $count+1;
+        }
+
+        return redirect()->route('pengumuman.create');
     }
 
     public function show($id)

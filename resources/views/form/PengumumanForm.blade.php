@@ -18,53 +18,40 @@
 
 @section('content')
 <br />
-<br />
 <div class="row container">
-    <form class="col s12" method="POST" action="{{ route('pengumuman.store') }}">
+    <h5 class="center light-blue-text"><u>Buat Pengumuman</u></h5>
+    <form class="col s12" method="POST" action="{{ route('pengumuman.store') }}"  enctype="multipart/form-data" files="true">
         {{ csrf_field() }}
         <div class="row">
             <div class="input-field col s12 m10 l8">
-                <input name="judul" id="judul" type="text" class="validate">
-                <label for="judul">Judul</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col s12 m10 l8 section scrollspy">
-                <label for="tanggal">Tanggal</label>
-            </div>
-            <div class="input-field col s12 m10 l8 section scrollspy">
-                <input name="tanggal" id="tangal" type="date" class="datepicker">
+                <input name="title" id="title" type="text" class="validate">
+                <label for="title">Judul</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field">
-                <textarea cols="10" name="isi">Isi di sini</textarea>
+                <textarea cols="10" name="content"></textarea>
             </div>
         </div>
         <div class="file-field input-field">
-            <div class="btn">
+            <div class="btn light-blue">
                 <span>Sisipan</span>
-                <input name="file" type="file">
+                <input name="file[]" type="file" multiple="">
             </div>
                 <div class="file-path-wrapper">
                 <input class="file-path validate" type="text">
             </div>
         </div>
 
-        <button class="btn waves-effect waves-light" type="submit" name="action">
-            Buat Pengumuman
+        <br />
+        <a href="{{ route('pengumuman.index') }}"}} class="btn waves-effect red accent-2 left">
+            Kembali
+        </a>
+        <button class="btn waves-effect waves-light light-blue right" type="submit">
+            Buat
         </button>
     </form>
 </div>
 <br />
 <br />
-@endsection
-
-@section('moreScripts')
-<script>
-    $('.datepicker').pickadate({
-        selectMonths: true,
-        selectYears: 5 // Creates a dropdown of 15 years to control year
-    });
-</script>
 @endsection
