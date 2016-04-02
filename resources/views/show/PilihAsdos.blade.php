@@ -23,31 +23,98 @@
 @endif
 
 <div class="container">
+    {{ csrf_field() }}
     <div class="row">
-        <a class="black-text" href="{{ route('dosen.create') }}"><i class="material-icons left">add</i>Tambah Dosen</a>
+        <div class="input-field col s12 m12 l12">
+            <select id="classroom">
+                <option value="" disabled selected>Daftar kelas</option>
+                @foreach($classrooms as $classroom)
+                <option id="{{ $classroom->id }}" value="{{ $classroom->id }}">{{ $classroom->name }}</option>
+                @endforeach
+            </select>
+            <label>
+                Pilih Kelas
+            </label>
+        </div>
     </div>
-</div>
-<div class="container">
+
     <table class="responsive-table highlight">
         <thead>
             <tr>
-                <th data-field="name" rowspan="2">Nama</th>
-                <th data-field="NRP" rowspan="2">NRP</th>
-                <th data-field="IPK" rowspan="2">IPK</th>
-                <th data-field="classroom" rowspan="2">Kelas</th>
-                <th class="center"data-field="status" colspan="2">Status</th>
+                <th data-field="name">Nama</th>
+                <th data-field="NRP">NRP</th>
+                <th data-field="IPK">IPK</th>
+                <th data-field="IPK">Nilai Kelas</th>
+                <th data-field="trankrip">Trankrip</th>
+                <th data-field="status">Status</th>
             </tr>
         </thead>
 
-        <tbody>
-            @foreach ($registrants as $registrant)
-                <tr>
-                    <td>{{ $registrant->name }}</td>
-                    <td>{{ $registrant->NRP }}</td>
-                    <td>{{ $registrant->gpa }}</td>
-                    <td>{{ $registrant->classroom->name }}</td>
-            @endforeach
+        <tbody id="registrantresult">
         </tbody>
     </table>
 </div>
+@endsection
+
+@section('moreScripts')
+<script>
+$(document).ready(function(){
+    $('select').material_select();
+    $.ajaxSetup({
+        headers:{
+            'X-CSRF-Token': $('input[name="_token"]').val()
+        }
+    });
+
+    $("#classroom").change( function() {
+        var optionSelected = $("option:selected", this);
+        var valueSelected = this.value;
+        var route = '{{ route("pilihasdos.registrant", ":id") }}';
+        route = route.replace(':id', valueSelected);
+        $.ajax({
+            url: route,
+            type: 'GET',
+            success: function(data){
+                $('#registrantresult').empty();
+                $.each(data, function(index, element) {
+                    var trankriproute = '{{ route("pilihasdos.trankrip", ":id") }}';
+                    trankriproute = trankriproute.replace(':id', element.id);
+                    var trankrip =  "<td>"+
+                                        "<a href='"+trankriproute+"'><i class='material-icons'>description</i></a>"+
+                                    "</td>";
+                    var status = "";
+                    if(element.status==0)
+                        status =    "<td id='status'>"+
+                                        "<input type='checkbox' id='status_"+element.id+"'/>"+
+                                        "<label for='status_"+element.id+"'>Diterima</label>"+
+                                    "</td>";
+                    else
+                        status =    "<td id='status'>"+
+                                        "<input type='checkbox' id='status_"+element.id+"' checked='checked'/>"+
+                                        "<label for='status_"+element.id+"'>Diterima</label>"+
+                                    "</td>";
+                    $('#registrantresult').append(
+                        '<tr>'+
+                            '<td>'+element.name+'</td>'+
+                            '<td>'+element.NRP+'</td>'+
+                            '<td>'+element.gpa+'</td>'+
+                            '<td>'+element.mark+'</td>'+
+                            trankrip+
+                            status+
+                        '</tr>'
+                    );
+                });
+            }
+        });
+    });
+});
+
+$(document).on('change', 'input:checkbox', function() {
+    $.ajax({
+        url: '{{ route('pilihasdos.update') }}',
+        type: 'POST',
+        data: { id : $(this).attr("id")  }
+    });
+});
+</script>
 @endsection

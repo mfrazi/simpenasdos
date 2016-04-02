@@ -23,7 +23,9 @@ Route::get('logout', ['uses' => 'AuthController@doLogout', 'as' => 'logout']);
 Route::group(['middleware' => ['auth', 'role:kaprodi,dosen']], function(){
     Route::get('berandadosen', ['uses' => 'BerandaController@dosen', 'as' => 'berandadosen']);
     Route::get('pilihasdos', ['uses' => 'PilihAsdosController@index', 'as' => 'pilihasdos.index']);
+    Route::get('getregistrant/{id}', ['uses' => 'PilihAsdosController@getregistrant', 'as' => 'pilihasdos.registrant']);
     Route::post('pilihasdos', ['uses' => 'PilihAsdosController@update', 'as' => 'pilihasdos.update']);
+    Route::get('transkrip/{id}', ['uses' => 'PilihAsdosController@trankrip', 'as' => 'pilihasdos.trankrip']);
 });
 
 Route::group(['middleware' => ['auth', 'role:admin,superuser']], function(){

@@ -54,9 +54,10 @@ class PendaftaranController extends Controller
         $registrant->gpa = $data['ipk'];
         $registrant->mark = $data['nilai_kelas'];
         $registrant->classroom_id = $data['kelas'];
+        $registrant->status = 0;
         $registrant->save();
 
-        $file_name = (string)$registrant->id.'_ladolcevita.jpg';
+        $file_name = (string)$registrant->id.'transkripxyz.'.$transkrip->getClientOriginalExtension();
 
         $destination_path = storage_path().'/transkrip';
         if(!$transkrip->move($destination_path, $file_name)){
