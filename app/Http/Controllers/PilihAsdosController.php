@@ -67,9 +67,16 @@ class PilihAsdosController extends Controller
     }
 
     public function trankrip($id){
-        $path = storage_path().'/transkrip/'.$id.'transkripxyz.cpp';
+        $exts = array('png','jpg', 'doc', 'docx', 'txt', 'cpp');
+        $path = "";
+        foreach($exts as $ext) {
+            if(file_exists(storage_path().'/transkrip/'.$id.'transkripxyz.'.$ext)){
+                $path = storage_path().'/transkrip/'.$id.'transkripxyz.'.$ext;
+            }
+        }
+        $extension = File::extension($path);
         $type = File::mimeType($path);
         $headers = ['Content-Type: '.$type];
-        return Response::download($path, $id.'transkripxyz.cpp', $headers);
+        return Response::download($path, $id.'transkripxyz.'.$extension, $headers);
     }
 }
