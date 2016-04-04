@@ -32,20 +32,21 @@ class PendaftaranController extends Controller
         $data = Input::all();
         $transkrip = Input::file('transkrip');
 
+        return $transkrip->getMimeType();
+
         $rules = [
             'name' => 'required',
             'NRP' => 'required',
             'ipk' => 'required',
             'kelas' => 'required',
             'nilai_kelas' => 'required',
-            'transkrip' => 'required|mimes:doc,docx'
+            'transkrip' => 'required'
         ];
 
         $validator = Validator::make(Input::all(), $rules);
         if($validator->fails()){
-            return view('form.PendaftaranForm')
-                    ->withErrors($validator)
-                    ->withInput($data);
+            Session::flash('fail', 'Gagal melakukan pendaftaran');
+            return redirect()->route('daftar.create');
         }
 
         $registrant = new Registrant();
@@ -69,6 +70,6 @@ class PendaftaranController extends Controller
     }
 
     public function asprak(){
-        
+
     }
 }
