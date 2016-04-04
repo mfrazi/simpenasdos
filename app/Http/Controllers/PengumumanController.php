@@ -12,20 +12,19 @@ use App\Announcement;
 use Auth;
 use Input;
 
-class PengumumanController extends Controller
-{
-    public function index()
-    {
-        return view('index.pengumuman');
+class PengumumanController extends Controller {
+    public function index() {
+        $announs = Announcement::all();
+        // download file di sini
+        //return $announs;
+        return view('index.PengumumanIndex', ['announs' => $announs]);
     }
 
-    public function create()
-    {
+    public function create() {
         return view('form.PengumumanForm');
     }
 
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $pengumuman = Input::all();
         $files = Input::file('file');
 
@@ -33,15 +32,20 @@ class PengumumanController extends Controller
         $announ->title = $pengumuman['title'];
         $announ->content = $pengumuman['content'];
         $announ->user_id = Auth::user()->id;
-        $announ->save();
+        //$announ->save();
 
-        $destination_path = public_path().'/filepengumuman';
-        $count = 1;
-        foreach ($files as $file){
-            $file_name = $announ->id.'pengumuman'.(string)$count.'.'.$file->getClientOriginalExtension();
-            $file->move($destination_path, $file_name);
-            echo $file_name;
-            $count = $count+1;
+        //return var_dump($files);
+        // cari cek null
+        if(is_null($files)){
+            return "ok";
+            $destination_path = public_path().'/filepengumuman';
+            $count = 1;
+            foreach ($files as $file){
+                $file_name = $announ->id.'pengumuman'.(string)$count.'.'.$file->getClientOriginalExtension();
+                $file->move($destination_path, $file_name);
+                echo $file_name;
+                $count = $count+1;
+            }
         }
 
         return redirect()->route('pengumuman.create');

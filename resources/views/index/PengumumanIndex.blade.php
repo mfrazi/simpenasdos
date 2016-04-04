@@ -18,6 +18,18 @@
 <div class="container">
     <div class="row">
         <div class="col s12 m8 l8 push-m2 push-l2">
+            @foreach($announs as $announ)
+                <div>
+                    <h3>
+                        {{ $announ->title }}
+                    </h3>
+                </div>
+                <div>
+                    <p>
+                        {!! $announ->content !!}
+                    </p>
+                </div>
+            @endforeach
         </div>
     </div>
 </div>

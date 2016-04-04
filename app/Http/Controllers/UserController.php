@@ -19,7 +19,7 @@ class UserController extends Controller{
         $users = User::where('role_id', '=', 1)
                 ->select('id', 'name', 'NIP', 'username')
                 ->get();
-        return view('index.dosen', ['users' => $users]);
+        return view('index.DosenIndex', ['users' => $users]);
     }
 
     public function create(){
@@ -61,7 +61,12 @@ class UserController extends Controller{
 
     public function edit($id){
         $user = User::where('id', '=', $id)->first();
-        return view('form.DosenEditForm', ['user' => $user]);
+        return view('form.DosenEditForm', ['user' => $user, 'ok' => 2]);
+    }
+
+    public function selfedit(){
+        $user = User::where('id', '=', Auth::user()->id)->first();
+        return view('form.DosenEditForm', ['user' => $user, 'ok' => Auth::user()->role_id]);
     }
 
     public function update($id){
@@ -72,17 +77,28 @@ class UserController extends Controller{
         );
 
         $validator = Validator::make(Input::all(), $rules);
-
         if($validator->fails()){
-            return view('form.DosenForm')
-                    ->withErrors($validator)
-                    ->withInput(Input::except('password'));
+            Session::flash('fail', 'Data gagal diperbarui');
+            if(Auth::user()->id!=$id && Auth::user()->role_id==2)
+                return redirect()->route('dosen.edit', ['dosen' => $id, 'ok' => 2]);
+            else
+                return redirect()->route('selfedit', ['ok' => Auth::user()->role_id]);
+        }
+        else if(Auth::user()->id!=$id && Auth::user()->role_id!=2){
+            Session::flash('fail', 'Data gagal diperbarui');
+            if(Auth::user()->id!=$id && Auth::user()->role_id==2)
+                return redirect()->route('dosen.edit', ['dosen' => $id, 'ok' => 2]);
+            else
+                return redirect()->route('selfedit', ['ok' => Auth::user()->role_id]);
         }
         else{
             $check_username = User::where('username', '=', Input::get('username'))->first();
             if($check_username && $check_username->id!=$id){
                 Session::flash('fail', 'Username sudah digunakan');
-                return redirect()->route('dosen.edit', ['dosen' => $id]);
+                if(Auth::user()->id!=$id && Auth::user()->role_id==2)
+                    return redirect()->route('dosen.edit', ['dosen' => $id, 'ok' => 2]);
+                else
+                    return redirect()->route('selfedit', ['ok' => Auth::user()->role_id]);
             }
             else{
                 $user = User::find($id);
@@ -95,8 +111,11 @@ class UserController extends Controller{
                     Session::flash('password', 'Password berhasil diubah');
                 }
                 $user->save();
-                Session::flash('success', 'Data dosen berhasil diubah');
-                return redirect()->route('dosen.edit', ['dosen' => $id]);
+                Session::flash('success', 'Data akun berhasil diubah');
+                if(Auth::user()->id!=$id && Auth::user()->role_id==2)
+                    return redirect()->route('dosen.edit', ['dosen' => $id, 'ok' => 2]);
+                else
+                    return redirect()->route('selfedit', ['ok' => Auth::user()->role_id]);
             }
         }
     }

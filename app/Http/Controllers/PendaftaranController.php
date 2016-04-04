@@ -38,7 +38,7 @@ class PendaftaranController extends Controller
             'ipk' => 'required',
             'kelas' => 'required',
             'nilai_kelas' => 'required',
-            'transkrip' => 'required|mimes:c,cpp'
+            'transkrip' => 'required|mimes:doc,docx'
         ];
 
         $validator = Validator::make(Input::all(), $rules);
@@ -66,5 +66,9 @@ class PendaftaranController extends Controller
         }
         Session::flash('success', 'Pendaftaran berhasil dilakukan');
         return redirect()->route('daftar.create');
+    }
+
+    public function asprak(){
+        
     }
 }

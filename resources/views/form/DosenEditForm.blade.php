@@ -3,7 +3,11 @@
 @section('title', 'Edit Dosen')
 
 @section('navbar')
-    @include('base.navbarAdmin')
+    @if($ok == 2)
+        @include('base.navbarAdmin')
+    @else
+        @include('base.navbarDosen')
+    @endif
 @endsection
 
 @section('content')

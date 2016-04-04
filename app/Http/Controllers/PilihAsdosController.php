@@ -33,7 +33,7 @@ class PilihAsdosController extends Controller
             $classrooms = Classroom::all();
         }
         //return $classroom;
-        return view('show.PilihAsdos', ['classrooms' => $classrooms]);
+        return view('form.PilihAsdosForm', ['classrooms' => $classrooms]);
     }
 
     public function getregistrant($id){

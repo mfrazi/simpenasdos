@@ -19,7 +19,7 @@
 @section('content')
 <br />
 <div class="row container">
-    <h5 class="center light-blue-text"><u>Buat Pengumuman</u></h5>
+    <h5 class="center"><b>Buat Pengumuman</b></h5>
     <form class="col s12" method="POST" action="{{ route('pengumuman.store') }}"  enctype="multipart/form-data" files="true">
         {{ csrf_field() }}
         <div class="row">

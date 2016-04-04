@@ -20,7 +20,7 @@ class KelasController extends Controller
     public function index()
     {
         $classroom = Classroom::with('course')->groupBy('course_id')->select('course_id')->get();
-        return view('index.kelas', ['classrooms' => $classroom]);
+        return view('index.KelasIndex', ['classrooms' => $classroom]);
     }
 
     public function create()
@@ -50,7 +50,7 @@ class KelasController extends Controller
     {
         $classroom = Classroom::where('course_id','=',$id)->with('classuser')->get();
         $dosen = User::select('id','name')->where('role_id', '=', 1)->get();
-        return view('show.kelas', ['kelas' => $classroom, 'dosen' => $dosen]);
+        return view('form.KelasEditForm', ['kelas' => $classroom, 'dosen' => $dosen]);
     }
 
     public function edit($id)

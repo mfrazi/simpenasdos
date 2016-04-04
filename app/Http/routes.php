@@ -20,6 +20,12 @@ Route::get('login', 'AuthController@showLogin');
 Route::post('login', ['uses' => 'AuthController@doLogin', 'as' => 'login']);
 Route::get('logout', ['uses' => 'AuthController@doLogout', 'as' => 'logout']);
 
+Route::group(['middleware' => ['auth', 'role:admin,kaprodi,dosen']], function(){
+    Route::get('selfedit', ['uses' => 'UserController@selfedit', 'as' => 'selfedit']);
+    Route::post('dosen/{dosen}/update', ['uses' => 'UserController@update', 'as' => 'dosen.update']);
+});
+
+
 Route::group(['middleware' => ['auth', 'role:kaprodi,dosen']], function(){
     Route::get('berandadosen', ['uses' => 'BerandaController@dosen', 'as' => 'berandadosen']);
     Route::get('pilihasdos', ['uses' => 'PilihAsdosController@index', 'as' => 'pilihasdos.index']);
@@ -31,9 +37,7 @@ Route::group(['middleware' => ['auth', 'role:kaprodi,dosen']], function(){
 Route::group(['middleware' => ['auth', 'role:admin,superuser']], function(){
     Route::get('berandaadmin', ['uses' => 'BerandaController@admin', 'as' => 'berandaadmin']);
 
-    //CRUD user (user yang dimaksud adalah dosen)
     Route::resource('dosen', 'UserController', ['except' => ['show', 'update', 'destroy']]);
-    Route::post('dosen/{dosen}/update', ['uses' => 'UserController@update', 'as' => 'dosen.update']);
     Route::get('dosen/{dosen}/destroy', ['uses' => 'UserController@destroy', 'as' => 'dosen.destroy']);
 
     Route::resource('kelas', 'KelasController', ['except' => ['update', 'destroy']]);
