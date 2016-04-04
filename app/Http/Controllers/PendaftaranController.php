@@ -32,8 +32,6 @@ class PendaftaranController extends Controller
         $data = Input::all();
         $transkrip = Input::file('transkrip');
 
-        return $transkrip->getMimeType();
-
         $rules = [
             'name' => 'required',
             'NRP' => 'required',
