@@ -41,6 +41,14 @@
                 <label for="nrp">NRP</label>
             </div>
         </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+                <input name="phone_number" id="phone_number" type="text" class="validate" required="" aria-required="true">
+                <label for="phone_number">Nomor HP</label>
+            </div>
+        </div>
+
         <div class="row">
             <div class="input-field col s12">
                 <input name="ipk" id="ipk" type="number" step="0.01" min="0" max="4" class="validate" required="" aria-required="true">
@@ -48,9 +56,13 @@
             </div>
         </div>
 
+        <p>
+            <input name="pengalaman" type="checkbox" class="filled-in" id="pengalaman" checked="checked" />
+            <label for="pengalaman">Memiliki pengalaman menjadi asisten sebelumnya</label>
+        </p>
         <div class="row">
             <div class="input-field col s12 m3 l9">
-                <select name="kelas">
+                <select name="kelas1">
                     <option value="" disabled selected>Pilih Kelas</option>
                     @foreach($classrooms as $classroom)
                         <option value="{{ $classroom->id }}">{{ $classroom->name }}</option>
@@ -58,8 +70,23 @@
                 </select>
             </div>
             <div class="input-field col s12 m3 l3">
-                <input name="nilai_kelas" id="nilai" type="text" class="validate" required="" aria-required="true">
-                <label>Nilai Kelas</label>
+                <input name="nilai_kelas1" id="nilai" type="text" class="validate" required="" aria-required="true">
+                <label>Nilai Kelas Terakhir</label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12 m3 l9">
+                <select name="kelas2">
+                    <option value="" disabled selected>Pilih Kelas</option>
+                    @foreach($classrooms as $classroom)
+                        <option value="{{ $classroom->id }}">{{ $classroom->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="input-field col s12 m3 l3">
+                <input name="nilai_kelas2" id="nilai" type="text" class="validate" required="" aria-required="true">
+                <label>Nilai Kelas Terakhir</label>
             </div>
         </div>
 

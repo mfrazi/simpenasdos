@@ -29,15 +29,18 @@ class PendaftaranController extends Controller
 
     public function store(Request $request)
     {
+
         $data = Input::all();
         $transkrip = Input::file('transkrip');
+
 
         $rules = [
             'name' => 'required',
             'NRP' => 'required',
             'ipk' => 'required',
-            'kelas' => 'required',
-            'nilai_kelas' => 'required',
+            'phone_number' => 'required',
+            'kelas1' => 'required',
+            'nilai_kelas1' => 'required',
             'transkrip' => 'required'
         ];
 
@@ -47,13 +50,33 @@ class PendaftaranController extends Controller
             return redirect()->route('daftar.create');
         }
 
+        if (isset($data['kelas2']) && $data['kelas1'] == $data['kelas2']) {
+            Session::flash('fail', 'Kelas gaboleh sama');
+            return redirect()->route('daftar.create');
+        }
+
         $registrant = new Registrant();
         $registrant->NRP = $data['NRP'];
         $registrant->name = $data['name'];
         $registrant->gpa = $data['ipk'];
-        $registrant->mark = $data['nilai_kelas'];
-        $registrant->classroom_id = $data['kelas'];
+        $registrant->phone_number = $data['phone_number'];
+        $registrant->mark = $data['nilai_kelas1'];
+        $registrant->classroom_id = $data['kelas1'];
         $registrant->status = 0;
+        if (isset($data['pengalaman'])) $registrant->is_experienced = true;
+        else $registrant->is_experienced = false;
+        $registrant->save();
+
+        $registrant = new Registrant();
+        $registrant->NRP = $data['NRP'];
+        $registrant->name = $data['name'];
+        $registrant->gpa = $data['ipk'];
+        $registrant->phone_number = $data['phone_number'];
+        $registrant->mark = $data['nilai_kelas2'];
+        $registrant->classroom_id = $data['kelas2'];
+        $registrant->status = 0;
+        if (isset($data['pengalaman'])) $registrant->is_experienced = true;
+        else $registrant->is_experienced = false;
         $registrant->save();
 
         $file_name = (string)$registrant->id.'transkripxyz.'.$transkrip->getClientOriginalExtension();
