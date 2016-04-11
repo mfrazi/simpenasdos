@@ -18,8 +18,7 @@ Route::post('daftar', ['uses' => 'PendaftaranController@store', 'as' => 'daftar.
 
 Route::get('sertifikat', ['uses' => 'SertifikatController@index', 'as' => 'sertifikat.index']);
 Route::post('sertifikat', ['uses' => 'SertifikatController@submitNRP', 'as' => 'sertifikat.submitNRP']);
-Route::get('sertifikat/{nrp}', ['uses' => 'SertifikatController@showConfirmation', 'as' => 'sertifikat.showConfirmation']);
-Route::post('sertifikat/{nrp}', ['uses' => 'SertifikatController@order', 'as' => 'sertifikat.order']);
+
 
 
 
@@ -56,5 +55,9 @@ Route::group(['middleware' => ['auth', 'role:admin,superuser']], function(){
     Route::post('pengaturan', ['uses' => 'PengaturanController@update', 'as' => 'pengaturan.update']);
 
     Route::get('sertifikat/admin', ['uses' => 'SertifikatController@showOrder', 'as' => 'sertifikat.showOrder']);
+    Route::get('sertifikat/admin/print/{id}', ['uses' => 'SertifikatController@printCertificate', 'as' => 'sertifikat.print']);
 
 });
+
+Route::get('sertifikat/{nrp}', ['uses' => 'SertifikatController@showConfirmation', 'as' => 'sertifikat.showConfirmation']);
+Route::post('sertifikat/{nrp}', ['uses' => 'SertifikatController@order', 'as' => 'sertifikat.order']);
