@@ -16,6 +16,13 @@ Route::get('/', ['uses' => 'BerandaController@umum', 'as' => 'berandaumum']);
 Route::get('daftar', ['uses' => 'PendaftaranController@create', 'as' => 'daftar.create']);
 Route::post('daftar', ['uses' => 'PendaftaranController@store', 'as' => 'daftar.store']);
 
+Route::get('sertifikat', ['uses' => 'SertifikatController@index', 'as' => 'sertifikat.index']);
+Route::post('sertifikat', ['uses' => 'SertifikatController@submitNRP', 'as' => 'sertifikat.submitNRP']);
+Route::get('sertifikat/{nrp}', ['uses' => 'SertifikatController@showConfirmation', 'as' => 'sertifikat.showConfirmation']);
+Route::post('sertifikat/{nrp}', ['uses' => 'SertifikatController@order', 'as' => 'sertifikat.order']);
+
+
+
 Route::get('login', 'AuthController@showLogin');
 Route::post('login', ['uses' => 'AuthController@doLogin', 'as' => 'login']);
 Route::get('logout', ['uses' => 'AuthController@doLogout', 'as' => 'logout']);
@@ -47,4 +54,7 @@ Route::group(['middleware' => ['auth', 'role:admin,superuser']], function(){
 
     Route::get('pengaturan', ['uses' => 'PengaturanController@index', 'as' => 'pengaturan']);
     Route::post('pengaturan', ['uses' => 'PengaturanController@update', 'as' => 'pengaturan.update']);
+
+    Route::get('sertifikat/admin', ['uses' => 'SertifikatController@showOrder', 'as' => 'sertifikat.showOrder']);
+
 });

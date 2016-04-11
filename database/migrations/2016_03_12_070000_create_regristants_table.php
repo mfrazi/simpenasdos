@@ -15,7 +15,9 @@ class CreateRegristantsTable extends Migration
                 $table->string('phone_number');
                 $table->double('gpa', 3, 2);
                 $table->char('mark', 2);
-                $table->boolean('is_experienced');
+                $table->boolean('is_experienced')->default(false);
+                $table->boolean('is_order_certificate')->default(false);
+                $table->boolean('is_certificate_printed')->default(false);
                 $table->boolean('status');
                 $table->integer('classroom_id')->unsigned();
                 $table->foreign('classroom_id')->references('id')->on('classrooms');
