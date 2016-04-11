@@ -21,10 +21,11 @@ Route::post('sertifikat', ['uses' => 'SertifikatController@submitNRP', 'as' => '
 
 
 
-
 Route::get('login', 'AuthController@showLogin');
 Route::post('login', ['uses' => 'AuthController@doLogin', 'as' => 'login']);
 Route::get('logout', ['uses' => 'AuthController@doLogout', 'as' => 'logout']);
+
+
 
 Route::group(['middleware' => ['auth', 'role:admin,kaprodi,dosen']], function(){
     Route::get('selfedit', ['uses' => 'UserController@selfedit', 'as' => 'selfedit']);
@@ -56,6 +57,10 @@ Route::group(['middleware' => ['auth', 'role:admin,superuser']], function(){
 
     Route::get('sertifikat/admin', ['uses' => 'SertifikatController@showOrder', 'as' => 'sertifikat.showOrder']);
     Route::get('sertifikat/admin/print/{id}', ['uses' => 'SertifikatController@printCertificate', 'as' => 'sertifikat.print']);
+
+    Route::get('asisten', ['uses' => 'PilihAsdosController@showAssistant', 'as' => 'asisten.show']);
+    Route::get('asisten/tambah', ['uses' => 'PilihAsdosController@showCloseRegForm', 'as' => 'asisten.showCloseRegForm']);
+    Route::post('asisten/tambah', ['uses' => 'PilihAsdosController@addAssistant', 'as' => 'asisten.addAssistant']);
 
 });
 

@@ -85,7 +85,7 @@
                 </select>
             </div>
             <div class="input-field col s12 m3 l3">
-                <input name="nilai_kelas2" id="nilai" type="text" class="validate" required="" aria-required="true">
+                <input name="nilai_kelas2" id="nilai" type="text">
                 <label>Nilai Kelas Terakhir</label>
             </div>
         </div>

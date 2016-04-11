@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Setting;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -15,6 +16,7 @@ use File;
 use Input;
 use Response;
 use Session;
+use Validator;
 
 class PilihAsdosController extends Controller
 {
@@ -78,5 +80,43 @@ class PilihAsdosController extends Controller
         $type = File::mimeType($path);
         $headers = ['Content-Type: '.$type];
         return Response::download($path, $id.'transkripxyz.'.$extension, $headers);
+    }
+
+    public function showAssistant() {
+        $assistants = Registrant::where('status', true)->with('classroom')->get();
+        return view('index.ListAsistenIndex', ['assistants'=>$assistants]);
+    }
+
+    public  function showCloseRegForm() {
+        $setting = Setting::all();
+        $semester_id = $setting[0]->semester_id;
+        $classrooms = Classroom::where('semester_id', $semester_id)->get();
+        return view('form.CloseRegForm', ['classrooms'=>$classrooms]);
+    }
+
+    public function addAssistant() {
+        $data = Input::all();
+
+        $rules = [
+            'name' => 'required',
+            'NRP' => 'required',
+            'kelas' => 'required'
+        ];
+
+        $validator = Validator::make(Input::all(), $rules);
+        if($validator->fails()){
+            Session::flash('fail', 'Gagal melakukan pendaftaran');
+            return redirect()->route('daftar.create');
+        }
+
+        $registrant = new Registrant();
+        $registrant->NRP = $data['NRP'];
+        $registrant->name = $data['name'];
+        $registrant->classroom_id = $data['kelas'];
+        $registrant->status = 1;
+        $registrant->save();
+
+        Session::flash('success', 'Penambahan asisten berhasil');
+        return redirect()->route('asisten.show');
     }
 }
