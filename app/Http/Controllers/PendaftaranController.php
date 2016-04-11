@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Setting;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -23,7 +24,9 @@ class PendaftaranController extends Controller
 
     public function create()
     {
-        $classrooms = Classroom::select('id', 'name')->get();
+        $setting = Setting::all();
+        $semester_id = $setting[0]->semester_id;
+        $classrooms = Classroom::where('semester_id', $semester_id)->get();
         return view('form.PendaftarForm', ['classrooms' => $classrooms]);
     }
 
@@ -67,17 +70,19 @@ class PendaftaranController extends Controller
         else $registrant->is_experienced = false;
         $registrant->save();
 
-        $registrant = new Registrant();
-        $registrant->NRP = $data['NRP'];
-        $registrant->name = $data['name'];
-        $registrant->gpa = $data['ipk'];
-        $registrant->phone_number = $data['phone_number'];
-        $registrant->mark = $data['nilai_kelas2'];
-        $registrant->classroom_id = $data['kelas2'];
-        $registrant->status = 0;
-        if (isset($data['pengalaman'])) $registrant->is_experienced = true;
-        else $registrant->is_experienced = false;
-        $registrant->save();
+        if (isset($data['kelas2'])) {
+            $registrant = new Registrant();
+            $registrant->NRP = $data['NRP'];
+            $registrant->name = $data['name'];
+            $registrant->gpa = $data['ipk'];
+            $registrant->phone_number = $data['phone_number'];
+            $registrant->mark = $data['nilai_kelas2'];
+            $registrant->classroom_id = $data['kelas2'];
+            $registrant->status = 0;
+            if (isset($data['pengalaman'])) $registrant->is_experienced = true;
+            else $registrant->is_experienced = false;
+            $registrant->save();
+        }
 
         $file_name = (string)$registrant->id.'transkripxyz.'.$transkrip->getClientOriginalExtension();
 
