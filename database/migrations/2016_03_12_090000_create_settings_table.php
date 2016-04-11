@@ -9,10 +9,12 @@ class CreateSettingsTable extends Migration
     {
         if(!(Schema::hasTable('settings'))){
             Schema::create('settings', function (Blueprint $table) {
-                $table->datetime('akhirsemester');
-                $table->boolean('status_pendaftaran');
-                $table->integer('tahun_pelajaran');
-                $table->tinyInteger('semester');
+                $table->increments('id');
+                $table->integer('semester_id')->unsigned();
+                $table->foreign('semester_id')->references('id')->on('semesters');
+                $table->boolean('status_pendaftaran')->default(0);
+                $table->boolean('status_pengumuman')->default(0);
+                $table->boolean('status_kaprodi')->default(0);
             });
         }
     }

@@ -44,4 +44,7 @@ Route::group(['middleware' => ['auth', 'role:admin,superuser']], function(){
     Route::post('kelas/update', ['uses' => 'KelasController@update', 'as' => 'kelas.update']);
 
     Route::resource('pengumuman', 'PengumumanController', ['except' => ['show', 'update', 'destroy']]);
+
+    Route::get('pengaturan', ['uses' => 'PengaturanController@index', 'as' => 'pengaturan']);
+    Route::post('pengaturan', ['uses' => 'PengaturanController@update', 'as' => 'pengaturan.update']);
 });
