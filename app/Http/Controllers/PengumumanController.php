@@ -32,7 +32,7 @@ class PengumumanController extends Controller {
         $announ->title = $pengumuman['title'];
         $announ->content = $pengumuman['content'];
         $announ->user_id = Auth::user()->id;
-        //$announ->save();
+        $announ->save();
 
         //return var_dump($files);
         // cari cek null
