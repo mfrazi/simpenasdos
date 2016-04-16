@@ -19,19 +19,14 @@ Route::post('daftar', ['uses' => 'PendaftaranController@store', 'as' => 'daftar.
 Route::get('sertifikat', ['uses' => 'SertifikatController@index', 'as' => 'sertifikat.index']);
 Route::post('sertifikat', ['uses' => 'SertifikatController@submitNRP', 'as' => 'sertifikat.submitNRP']);
 
-
-
 Route::get('login', 'AuthController@showLogin');
 Route::post('login', ['uses' => 'AuthController@doLogin', 'as' => 'login']);
 Route::get('logout', ['uses' => 'AuthController@doLogout', 'as' => 'logout']);
-
-
 
 Route::group(['middleware' => ['auth', 'role:admin,kaprodi,dosen']], function(){
     Route::get('selfedit', ['uses' => 'UserController@selfedit', 'as' => 'selfedit']);
     Route::post('dosen/{dosen}/update', ['uses' => 'UserController@update', 'as' => 'dosen.update']);
 });
-
 
 Route::group(['middleware' => ['auth', 'role:kaprodi,dosen']], function(){
     Route::get('berandadosen', ['uses' => 'BerandaController@dosen', 'as' => 'berandadosen']);
@@ -49,6 +44,7 @@ Route::group(['middleware' => ['auth', 'role:admin,superuser']], function(){
 
     Route::resource('kelas', 'KelasController', ['except' => ['update', 'destroy']]);
     Route::post('kelas/update', ['uses' => 'KelasController@update', 'as' => 'kelas.update']);
+    Route::get('kelas/{id}/destroy', ['uses' => 'KelasController@destroy', 'as' => 'kelas.destroy']);
 
     Route::resource('pengumuman', 'PengumumanController', ['except' => ['show', 'update', 'destroy']]);
 
