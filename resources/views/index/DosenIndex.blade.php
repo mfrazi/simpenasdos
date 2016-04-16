@@ -30,8 +30,8 @@ fk role -->
 
 <div class="containter">
     <div class="row">
-        <div class="input-field col s3"></div>
-        <div class="col s6 white" style="padding:0">
+        <div class="input-field col s1"></div>
+        <div class="col s10 white z-depth-2" style="padding:0">
             <div class="section center white-text blue-grey darken-4">
                 <h5>
                     Data Dosen
@@ -41,7 +41,7 @@ fk role -->
                 <div class="section"></div>
                 <div class="input-field col s1"></div>
                 <div class="input-field col s10">
-                    <a class="black-text" href="{{ route('dosen.create') }}"><i class="material-icons left light-green darken-2">add</i>Tambah Dosen</a>
+                    <a class="black-text" href="{{ route('dosen.create') }}"><i class="material-icons left light-green-text text-darken-2">queue</i>Tambah Dosen</a>
                     <div class="section"></div>
                 <!--</div>
             </div>
