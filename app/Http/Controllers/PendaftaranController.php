@@ -32,10 +32,8 @@ class PendaftaranController extends Controller
 
     public function store(Request $request)
     {
-
         $data = Input::all();
         $transkrip = Input::file('transkrip');
-
 
         $rules = [
             'name' => 'required',
@@ -54,7 +52,7 @@ class PendaftaranController extends Controller
         }
 
         if (isset($data['kelas2']) && $data['kelas1'] == $data['kelas2']) {
-            Session::flash('fail', 'Kelas gaboleh sama');
+            Session::flash('fail', 'Kelas yang dipilih tidak boleh sama');
             return redirect()->route('daftar.create');
         }
 
@@ -69,6 +67,13 @@ class PendaftaranController extends Controller
         if (isset($data['pengalaman'])) $registrant->is_experienced = true;
         else $registrant->is_experienced = false;
         $registrant->save();
+
+        $file_name = (string)$registrant->id.'transkripxyz.'.$transkrip->getClientOriginalExtension();
+        $destination_path = storage_path().'/transkrip';
+        if(!$transkrip->move($destination_path, $file_name)){
+            Session::flash('fail', 'Gagal mengupload file transkrip');
+            return redirect()->route('daftar.create');
+        }
 
         if (isset($data['kelas2'])) {
             $registrant = new Registrant();
@@ -85,7 +90,6 @@ class PendaftaranController extends Controller
         }
 
         $file_name = (string)$registrant->id.'transkripxyz.'.$transkrip->getClientOriginalExtension();
-
         $destination_path = storage_path().'/transkrip';
         if(!$transkrip->move($destination_path, $file_name)){
             Session::flash('fail', 'Gagal mengupload file transkrip');
@@ -95,7 +99,14 @@ class PendaftaranController extends Controller
         return redirect()->route('daftar.create');
     }
 
-    public function asprak(){
+    public function asprak_create(){
+        $setting = Setting::all();
+        $semester_id = $setting[0]->semester_id;
+        $classrooms = Classroom::where('semester_id', $semester_id)->get();
+        //return view('form.PendaftarForm', ['classrooms' => $classrooms]);
+    }
+
+    public function asprak_store(){
 
     }
 }
