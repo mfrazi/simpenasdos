@@ -87,13 +87,13 @@ class PendaftaranController extends Controller
             if (isset($data['pengalaman'])) $registrant->is_experienced = true;
             else $registrant->is_experienced = false;
             $registrant->save();
-        }
 
-        $file_name = (string)$registrant->id.'transkripxyz.'.$transkrip->getClientOriginalExtension();
-        $destination_path = storage_path().'/transkrip';
-        if(!$transkrip->move($destination_path, $file_name)){
-            Session::flash('fail', 'Gagal mengupload file transkrip');
-            return redirect()->route('daftar.create');
+            $file_name = (string)$registrant->id.'transkripxyz.'.$transkrip->getClientOriginalExtension();
+            $destination_path = storage_path().'/transkrip';
+            if(!$transkrip->move($destination_path, $file_name)){
+                Session::flash('fail', 'Gagal mengupload file transkrip');
+                return redirect()->route('daftar.create');
+            }
         }
         Session::flash('success', 'Pendaftaran berhasil dilakukan');
         return redirect()->route('daftar.create');
