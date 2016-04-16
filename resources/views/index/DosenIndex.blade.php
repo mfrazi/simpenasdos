@@ -28,37 +28,56 @@ fk role -->
     </div>
 @endif
 
-<div class="container">
+<div class="containter">
     <div class="row">
-        <a class="black-text" href="{{ route('dosen.create') }}"><i class="material-icons left">add</i>Tambah Dosen</a>
+        <div class="input-field col s3"></div>
+        <div class="col s6 white" style="padding:0">
+            <div class="section center white-text blue-grey darken-4">
+                <h5>
+                    Data Dosen
+                </h5>
+            </div>
+            <div class="row">
+                <div class="section"></div>
+                <div class="input-field col s1"></div>
+                <div class="input-field col s10">
+                    <a class="black-text" href="{{ route('dosen.create') }}"><i class="material-icons left light-green darken-2">add</i>Tambah Dosen</a>
+                    <div class="section"></div>
+                <!--</div>
+            </div>
+            <div class="row">
+                <div class="input-field col s1"></div>
+                <div class="input-field col s10">-->
+                    <table class="responsive-table highlight">
+                        <thead class="white-text orange darken-2">
+                            <tr>
+                                <th class="center" data-field="id" rowspan="2">Nama</th>
+                                <th class="center" data-field="name" rowspan="2">NIP</th>
+                                <th class="center" data-field="price" rowspan="2">Username</th>
+                                <th class="center"data-field="price" colspan="2">Action</th>
+                            </tr>
+                            <tr>
+                                <th class="center">Edit</th>
+                                <th class="center">Hapus</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach ($users as $user)
+                                <tr>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->NIP }}</td>
+                                    <td>{{ $user->username }}</td>
+                                    <td class="center"><a href="{{ route('dosen.edit', ['dosen' => $user->id]) }}"><i class="material-icons light-green-text text-darken-2">mode_edit</i></a></td>
+                                    <td class="center"><a class="red-text" href="{{ route('dosen.destroy', ['dosen' => $user->id]) }}"><i class="material-icons">delete</i></a></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-<div class="container">
-    <table class="responsive-table highlight">
-        <thead>
-            <tr>
-                <th data-field="id" rowspan="2">Nama</th>
-                <th data-field="name" rowspan="2">NIP</th>
-                <th data-field="price" rowspan="2">Username</th>
-                <th class="center"data-field="price" colspan="2">Action</th>
-            </tr>
-            <tr>
-                <th class="center">Edit</th>
-                <th class="center">Hapus</th>
-            </tr>
-        </thead>
 
-        <tbody>
-            @foreach ($users as $user)
-                <tr>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->NIP }}</td>
-                    <td>{{ $user->username }}</td>
-                    <td class="center"><a href="{{ route('dosen.edit', ['dosen' => $user->id]) }}"><i class="material-icons">mode_edit</i></a></td>
-                    <td class="center"><a class="red-text" href="{{ route('dosen.destroy', ['dosen' => $user->id]) }}"><i class="material-icons">delete</i></a></td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-</div>
 @endsection
