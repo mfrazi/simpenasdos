@@ -25,7 +25,37 @@
 
 <div class="container">
     <div class="row">
-        <a class="black-text" href="{{ route('kelas.create') }}"><i class="material-icons left">note_add</i>Tambah Kelas</a>
+        <div class="input-field col s1"></div>
+            <div class="col s10 white z-depth-2" style="padding:0">
+                <div class="section center white-text blue-grey darken-4">
+                    <h5>
+                        Kelas
+                    </h5>
+                </div>
+                <div class="row">
+                    <div class="section"></div>
+                    <div class="input-field col s1"></div>
+                    <div class="input-field col s10">
+                        <a class="black-text" href="{{ route('kelas.create') }}"><i class="material-icons light-green-text text-darken-2 left">queue</i>Tambah Kelas</a>
+                        <div class="section"></div>
+                        @foreach($classrooms as $k)
+                        <a href="{{ route('kelas.show', ['kelas' => $k->course_id]) }}">
+                            <div class="card-panel orange darken-2 z-depth-1">
+                                <span class="white-text">
+                                    {{ $k->course->name }}
+                                </span>
+                            </div>
+                        </a>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 
+    <div class="row">
+        
     </div>
 </div>
 <div class="container">
@@ -41,6 +71,6 @@
             </a>
             @endforeach
         </div>
-    </div>
+    </div> -->
 </div>
 @endsection

@@ -20,16 +20,23 @@
         </div>
     @endif
 
-    <form method="POST" action="{{ route('kelas.update') }}">
+    <form method="POST" action="{{ route('kelas.update') }}" class="col s10 push-s1 m8 push-m2 l6 push-l3 z-depth-2 white">
         {{ csrf_field() }}
+        <div class="section center white-text blue-grey darken-4">
+            <h5>
+                Ubah Kelas
+            </h5>
+        </div>
+        <div class="divider"></div>
+        <div class="section"></div>
         @foreach($kelas as $k)
             <div class="row">
-                <div class="input-field col s12 m8 l8">
+                <div class="input-field col s12 m8 l6 push-l1">
                     <input name="{{ 'kelasid'.$k->id }}" value="{{ $k->id }}" type="hidden"></input>
                     <input name="{{ 'kelasname'.$k->id }}" value="{{ $k->name }}" type="text" readonly></input>
                     <label>Kelas</label>
                 </div>
-                <div class="input-field col s12 m4 l4">
+                <div class="input-field col s12 m4 l4 push-l1">
                     <select id="dosen" name="{{ $k->id.'dosen[]' }}" multiple>
                         <option value="" disabled selected>Daftar Dosen</option>
                         <?php $tmp=[]; ?>
@@ -53,13 +60,16 @@
                 </div>
             </div>
         @endforeach
-
-        <a href="{{ route('kelas.index') }}"}} class="btn waves-effect red accent-2 left">
-            Kembali
-        </a>
-        <button id="submitButton" class="btn waves-effect light-blue right" type="submit">
-            Ubah
-        </button>
+        <div class="row">
+            <div class="input-field col l10 push-l1">
+                <a href="{{ route('kelas.index') }}"}} class="btn waves-effect red accent-2 left">
+                    Kembali
+                </a>
+                <button id="submitButton" class="btn waves-effect light-blue right" type="submit">
+                    Ubah
+                </button>
+            </div>
+        </div>
     </form>
 </div>
 <br />

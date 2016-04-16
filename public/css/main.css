@@ -31,10 +31,49 @@
     border-bottom: 1px solid #76b343;
     box-shadow: 0 1px 0 0 #000;
 }
+.input-field input[type=number]:focus + label {
+    color: #76b343;
+}
+.input-field input[type=number]:focus {
+    border-bottom: 1px solid #76b343;
+    box-shadow: 0 1px 0 0 #000;
+}
+.input-field input[type=number].valid {
+    border-bottom: 1px solid #76b343;
+    box-shadow: 0 1px 0 0 #000;
+}
+.input-field input[type=number].invalid {
+    border-bottom: 1px solid #76b343;
+    box-shadow: 0 1px 0 0 #000;
+}
 .input-field .prefix.active {
+    color: #000;
+}
+
+.select-wrapper li span{
+    color: #263238;
+}
+.select-wrapper li span input[type=checkbox]{
     color: #000;
 }
 th{
     padding-top: 10px;
     padding-bottom: 10px;
+}
+
+/* ganti placeholder */
+input::-webkit-input-placeholder {
+color: #7cb342 !important;
+}
+ 
+input:-moz-placeholder { /* Firefox 18- */
+color: #7cb342 !important;  
+}
+ 
+input::-moz-placeholder {  /* Firefox 19+ */
+color: #7cb342 !important;  
+}
+ 
+input:-ms-input-placeholder {  
+color: #7cb342 !important;  
 }

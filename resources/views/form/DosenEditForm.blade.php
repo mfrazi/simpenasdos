@@ -41,7 +41,7 @@
             {{ csrf_field() }}
             <div class="section center white-text blue-grey darken-4">
                 <h5>
-                    Ubah Data
+                    Ubah Akun
                 </h5>
             </div>
             <div class="divider"></div>
