@@ -30,10 +30,10 @@ Route::group(['middleware' => ['auth', 'role:admin,kaprodi,dosen']], function(){
 
 Route::group(['middleware' => ['auth', 'role:kaprodi,dosen']], function(){
     Route::get('berandadosen', ['uses' => 'BerandaController@dosen', 'as' => 'berandadosen']);
-    Route::get('pilihasdos', ['uses' => 'PilihAsdosController@index', 'as' => 'pilihasdos.index']);
-    Route::get('getregistrant/{id}', ['uses' => 'PilihAsdosController@getregistrant', 'as' => 'pilihasdos.registrant']);
-    Route::post('pilihasdos', ['uses' => 'PilihAsdosController@update', 'as' => 'pilihasdos.update']);
-    Route::get('transkrip/{id}', ['uses' => 'PilihAsdosController@trankrip', 'as' => 'pilihasdos.trankrip']);
+    Route::get('pilihasdos', ['uses' => 'AsistenDosenController@index', 'as' => 'pilihasdos.index']);
+    Route::get('getregistrant/{id}', ['uses' => 'AsistenDosenController@getregistrant', 'as' => 'pilihasdos.registrant']);
+    Route::post('pilihasdos', ['uses' => 'AsistenDosenController@update', 'as' => 'pilihasdos.update']);
+    Route::get('transkrip/{id}', ['uses' => 'AsistenDosenController@trankrip', 'as' => 'pilihasdos.trankrip']);
 });
 
 Route::group(['middleware' => ['auth', 'role:admin,superuser']], function(){
@@ -54,11 +54,12 @@ Route::group(['middleware' => ['auth', 'role:admin,superuser']], function(){
     Route::get('sertifikat/admin', ['uses' => 'SertifikatController@showOrder', 'as' => 'sertifikat.showOrder']);
     Route::get('sertifikat/admin/print/{id}', ['uses' => 'SertifikatController@printCertificate', 'as' => 'sertifikat.print']);
 
-    Route::get('asisten', ['uses' => 'PilihAsdosController@showAssistant', 'as' => 'asisten.show']);
-    Route::get('asisten/tambah', ['uses' => 'PilihAsdosController@showCloseRegForm', 'as' => 'asisten.showCloseRegForm']);
-    Route::post('asisten/tambah', ['uses' => 'PilihAsdosController@addAssistant', 'as' => 'asisten.addAssistant']);
+    Route::get('asisten', ['uses' => 'AsistenDosenController@showAssistant', 'as' => 'asisten.show']);
+    Route::get('asisten/tambah', ['uses' => 'AsistenDosenController@showCloseRegForm', 'as' => 'asisten.showCloseRegForm']);
+    Route::post('asisten/tambah', ['uses' => 'AsistenDosenController@addAssistant', 'as' => 'asisten.addAssistant']);
 
 });
 
+Route::get('asisten/download', ['uses' => 'AsistenDosenController@downloadDaftarAsisten', 'as' => 'download.daftar.asisten']);
 Route::get('sertifikat/{nrp}', ['uses' => 'SertifikatController@showConfirmation', 'as' => 'sertifikat.showConfirmation']);
 Route::post('sertifikat/{nrp}', ['uses' => 'SertifikatController@order', 'as' => 'sertifikat.order']);
