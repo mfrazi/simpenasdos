@@ -34,8 +34,6 @@ class PengumumanController extends Controller {
         $announ->user_id = Auth::user()->id;
         $announ->save();
 
-        //return var_dump($files);
-        // cari cek null
         if(is_null($files)){
             return "ok";
             $destination_path = public_path().'/filepengumuman';

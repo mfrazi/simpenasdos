@@ -98,15 +98,4 @@ class PendaftaranController extends Controller
         Session::flash('success', 'Pendaftaran berhasil dilakukan');
         return redirect()->route('daftar.create');
     }
-
-    public function asprak_create(){
-        $setting = Setting::all();
-        $semester_id = $setting[0]->semester_id;
-        $classrooms = Classroom::where('semester_id', $semester_id)->get();
-        //return view('form.PendaftarForm', ['classrooms' => $classrooms]);
-    }
-
-    public function asprak_store(){
-
-    }
 }
