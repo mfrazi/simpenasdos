@@ -69,7 +69,7 @@ class PilihAsdosController extends Controller
     }
 
     public function trankrip($id){
-        $exts = array('png','jpg', 'doc', 'docx', 'txt', 'cpp');
+        $exts = array('png','jpg', 'jpeg', 'pdf', 'doc', 'docx', 'txt', 'xls');
         $path = "";
         foreach($exts as $ext) {
             if(file_exists(storage_path().'/transkrip/'.$id.'transkripxyz.'.$ext)){
