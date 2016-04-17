@@ -14,6 +14,7 @@ class CreateAnnouncementsTable extends Migration
                 $table->longText('content');
                 $table->integer('user_id')->unsigned();
                 $table->foreign('user_id')->references('id')->on('users');
+                $table->smallInteger('jumlah_file')->default(0);
                 $table->timestamps();
             });
         }

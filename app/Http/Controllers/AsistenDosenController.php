@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Setting;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -10,29 +9,32 @@ use App\Http\Controllers\Controller;
 
 use App\Classroom;
 use App\Registrant;
+use App\Setting;
 
 use Auth;
+use Excel;
 use File;
 use Input;
 use Response;
 use Session;
 use Validator;
 
-class PilihAsdosController extends Controller
+class AsistenDosenController extends Controller
 {
     public function index()
     {
         $role_id = Auth::user()->role_id;
 
         if($role_id == 1){
-            $classrooms = Classroom::whereHas('classuser', function($query){
+            $classrooms = Classroom::where('semester_id', '=', Setting::find(1)->semester_id)
+                        ->whereHas('classuser', function($query){
                             $user_id = Auth::user()->id;
                             $query->where('user_id', '=', $user_id);
                         })->get();
         }
 
         else if($role_id == 3){
-            $classrooms = Classroom::all();
+            $classrooms = Classroom::where('semester_id', '=', Setting::find(1)->semester_id)->get();
         }
         //return $classroom;
         return view('form.PilihAsdosForm', ['classrooms' => $classrooms]);
@@ -69,7 +71,7 @@ class PilihAsdosController extends Controller
     }
 
     public function trankrip($id){
-        $exts = array('png','jpg', 'doc', 'docx', 'txt', 'cpp');
+        $exts = array('png','jpg', 'jpeg', 'pdf', 'doc', 'docx', 'txt', 'xls');
         $path = "";
         foreach($exts as $ext) {
             if(file_exists(storage_path().'/transkrip/'.$id.'transkripxyz.'.$ext)){
@@ -83,7 +85,13 @@ class PilihAsdosController extends Controller
     }
 
     public function showAssistant() {
-        $assistants = Registrant::where('status', true)->with('classroom')->get();
+        $semester_aktif = Setting::find(1)->semester_id;
+        $assistants = Registrant::where('status', true)
+                                    ->whereHas('classroom', function($query) use($semester_aktif){
+                                        $query->where('semester_id', '=', $semester_aktif);
+                                    })
+                                    ->with('classroom')->get();
+        return $assistants;
         return view('index.ListAsistenIndex', ['assistants'=>$assistants]);
     }
 
@@ -118,5 +126,42 @@ class PilihAsdosController extends Controller
 
         Session::flash('success', 'Penambahan asisten berhasil');
         return redirect()->route('asisten.show');
+    }
+
+    public function downloadDaftarAsisten(){
+        $status_pengumuman = Setting::find(1)->status_pengumuman;
+        $semester_aktif = Setting::find(1)->semester_id;
+        $role = -1;
+
+        $tmp_data = $assistants = Registrant::where('status', true)
+                            ->whereHas('classroom', function($query) use($semester_aktif){
+                                $query->where('semester_id', '=', $semester_aktif);
+                            })->select('NRP', 'name', 'classroom_id')->with('classroom')->get();
+
+        $data = [];
+        $cnt = 1;
+        foreach($tmp_data as $x){
+            $tmp = [];
+            $tmp['No'] = $cnt;
+            $tmp['NRP'] = $x->NRP;
+            $tmp['Nama'] = $x->name;
+            $tmp['Kelas'] = $x->classroom->name;
+            $cnt = $cnt + 1;
+            array_push($data, $tmp);
+        }
+
+        //return $data;
+        if(Auth::check())
+            $role = Auth::user()->role_id;
+        if($role == 2 || $status_pengumuman==1){
+            Excel::create('Daftar Asisten Dosen', function($excel) use($data){
+                $excel->sheet('Asisten Dosen', function($sheet) use($data){
+                    $sheet->fromArray($data);
+                });
+            })->export('xls');
+        }
+        else{
+            return route('berandaumum');
+        }
     }
 }
