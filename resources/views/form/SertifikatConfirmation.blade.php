@@ -9,28 +9,42 @@
 @section('content')
     <br/>
     <br/>
-
-    <div class="row container">
-        <h3>Daftar Kelas Asisten</h3>
-        @foreach($assistedClassrooms as $assistedClassroom)
-            <div class="col s12 m6">
-                <div class="card blue-grey darken-1">
-                    <div class="card-content white-text">
-                        {{ $assistedClassroom->classroom->name  }}
-                    </div>
+    <div class="container white z-depth-2">
+        <div class="row">
+            <div class="col l12">
+                <div class="section center white-text blue-grey darken-4">
+                    <h5>
+                        Daftar Kelas Asisten
+                    </h5>
                 </div>
             </div>
-        @endforeach
+        </div>
+        <div class="section"></div>
+        <div class="row">
+            @foreach($assistedClassrooms as $assistedClassroom)
+                <div class="col s12 m5 push-m1">
+                    <div class="card blue-grey darken-1">
+                        <div class="card-content white-text">
+                            {{ $assistedClassroom->classroom->name  }}
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+        <div class="row">
+            <form class="col s12 m12 l10 push-l1" method="POST" action="{{ route('sertifikat.order') }}"
+                  enctype="multipart/form-data">
+                {{ csrf_field() }}
+                <input type="hidden" name="NRP" value={{ $nrp }}>
+                <button class="btn waves-effect waves-light center right light-green darken-2" type="submit">
+                    Pesan Sertifikat
+                </button>
+            </form>
+        </div>
+        <div class="row"> </div>
     </div>
-    <div class="row container">
-        <form class="col s12 m12 l12" method="POST" action="{{ route('sertifikat.order') }}"
-              enctype="multipart/form-data">
-            {{ csrf_field() }}
-            <input type="hidden" name="NRP" value={{ $nrp }}>
-            <button class="btn waves-effect waves-light center" type="submit">
-                Pesan Sertifikat
-            </button>
-        </form>
+    <div class="row container white">
+        
     </div>
 @endsection
 
