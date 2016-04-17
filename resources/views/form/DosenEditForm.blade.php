@@ -24,7 +24,7 @@
                     </div>
                     @endif
                     @if(Session::has('password'))
-                    <div class="card-panel light-blue">
+                    <div class="card-panel orange darken-2">
                         <span class="white-text">{{ Session::get('password') }}</span>
                     </div>
                     @endif
@@ -83,8 +83,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s1"></div>
-                <div class="input-field col s10">
+                <div class="input-field col s10 push-s1">
                     <a href="{{ route('dosen.index') }}" class="btn waves-effect orange darken-1 left">
                         Kembali
                     </a>

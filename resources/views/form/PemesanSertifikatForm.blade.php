@@ -10,7 +10,7 @@
 
     <br/>
     <br/>
-    <div class="row container">
+    <div class="container row white">
         @if(Session::has('success') || Session::has('fail'))
             <div class="row center">
                 <div class="col s10 push-s1 m6 push-m3 l6 push-l3">
@@ -27,7 +27,8 @@
                 </div>
             </div>
         @endif
-            <table class="striped">
+        <div class="">
+            <table class="responsive-table striped">
                 <thead>
                 <tr>
                     <th data-field="id">NRP</th>
@@ -57,8 +58,7 @@
 
                 </tbody>
             </table>
-
-
+        </div>
     </div>
 @endsection
 

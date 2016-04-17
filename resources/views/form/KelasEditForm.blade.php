@@ -13,7 +13,7 @@
     @if(Session::has('success'))
         <div class="row center">
             <div class="col s10 push-s1 m6 push-m3 l6 push-l3">
-                <div class="card-panel light-blue">
+                <div class="card-panel orange darken-2">
                     <span class="white-text">{{ Session::get('success') }}</span>
                 </div>
             </div>
@@ -62,14 +62,15 @@
         @endforeach
         <div class="row">
             <div class="input-field col l10 push-l1">
-                <a href="{{ route('kelas.index') }}"}} class="btn waves-effect red accent-2 left">
+                <a href="{{ route('kelas.index') }}"}} class="btn waves-effect orange darken-2 accent-2 left">
                     Kembali
                 </a>
-                <button id="submitButton" class="btn waves-effect light-blue right" type="submit">
+                <button id="submitButton" class="btn waves-effect light-green darken-2 right" type="submit">
                     Ubah
                 </button>
             </div>
         </div>
+        <div class="section"></div>
     </form>
 </div>
 <br />
