@@ -14,7 +14,7 @@
         <div class="row center">
             <div class="col s10 push-s1 m6 push-m3 l6 push-l3">
                 @if(Session::has('success'))
-                <div class="card-panel light-blue">
+                <div class="card-panel orange darken-2">
                     <span class="white-text">{{ Session::get('success') }}</span>
                 </div>
                 @endif
@@ -27,10 +27,16 @@
         </div>
     @endif
 
-    <form class="col s10 push-s1 m8 push-m2 l6 push-l3" method="POST" action="{{ route('pengaturan.update') }}">
+    <form class="col s10 push-s1 m8 push-m2 l6 push-l3 white z-depth-2" method="POST" action="{{ route('pengaturan.update') }}" style="padding:0">
         {{ csrf_field() }}
+        <div class="section center white-text blue-grey darken-4">
+            <h5>
+                Pengaturan
+            </h5>
+        </div>
+        <div class="section"></div>
         <div class="row">
-            <div class="input-field col s12 m12 l12">
+            <div class="input-field col s12 m12 l10 push-l1">
                 <select id="semester" name="semester">
                     @foreach($semesters as $semester)
                         @if($semester->id == $setting->semester_id)
@@ -47,8 +53,8 @@
         </div>
 
         <div class="row">
-            <div class="col s12 m12 l12">
-                <div class="light-blue-text">
+            <div class="col s12 m12 l10 push-l1">
+                <div class="light-green-text text-darken-2">
                     Pendaftaran
                 </div>
                 <div class="switch">
@@ -67,8 +73,8 @@
         </div>
 
         <div class="row">
-            <div class="col s12 m12 l12">
-                <p class="light-blue-text">
+            <div class="col s12 m12 l10 push-l1">
+                <p class="light-green-text text-darken-2">
                     Pengumuman Penerimaan Asisten
                 </p>
                 <div class="switch">
@@ -87,8 +93,8 @@
         </div>
 
         <div class="row">
-            <div class="col s12 m12 l12">
-                <p class="light-blue-text">
+            <div class="col s12 m12 l10 push-l1">
+                <p class="light-green-text text-darken-2">
                     Kaprodi memilih Asisten Dosen
                 </p>
                 <div class="switch">
@@ -108,9 +114,14 @@
 
         <br/>
         <br/>
-        <button id="submitButton" class="btn waves-effect light-blue right" type="submit">
-            Ubah
-        </button>
+        <div class="row">
+            <div class="col l10 push-l1">
+                <button id="submitButton" class="btn waves-effect light-green darken-2 right" type="submit">
+                    Ubah
+                </button>
+            </div>
+        </div>
+
     </form>
 </div>
 @endsection

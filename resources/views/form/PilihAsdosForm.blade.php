@@ -22,10 +22,16 @@
     </div>
 @endif
 
-<div class="container">
+<div class="container white">
     {{ csrf_field() }}
+    <div class="section center white-text blue-grey darken-4">
+        <h5>
+            Penerimaan Asisten Dosen
+        </h5>
+    </div>
+    <div class="section"></div>
     <div class="row">
-        <div class="input-field col s12 m12 l12">
+        <div class="input-field col s12 m12 l10 push-l1">
             <select id="classroom">
                 <option value="" disabled selected>Daftar kelas</option>
                 @foreach($classrooms as $classroom)
@@ -37,22 +43,26 @@
             </label>
         </div>
     </div>
+    <div class="row">
+        <div class="col l10 push-l1">
+            <table class="responsive-table highlight">
+                <thead class="orange darken-2">
+                    <tr>
+                        <th data-field="name">Nama</th>
+                        <th data-field="NRP">NRP</th>
+                        <th data-field="IPK">IPK</th>
+                        <th data-field="IPK">Nilai Kelas</th>
+                        <th data-field="trankrip">Trankrip</th>
+                        <th data-field="status">Status</th>
+                    </tr>
+                </thead>
 
-    <table class="responsive-table highlight">
-        <thead>
-            <tr>
-                <th data-field="name">Nama</th>
-                <th data-field="NRP">NRP</th>
-                <th data-field="IPK">IPK</th>
-                <th data-field="IPK">Nilai Kelas</th>
-                <th data-field="trankrip">Trankrip</th>
-                <th data-field="status">Status</th>
-            </tr>
-        </thead>
-
-        <tbody id="registrantresult">
-        </tbody>
-    </table>
+                <tbody id="registrantresult">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="section"></div>
 </div>
 @endsection
 
@@ -80,7 +90,7 @@ $(document).ready(function(){
                     var trankriproute = '{{ route("pilihasdos.trankrip", ":id") }}';
                     trankriproute = trankriproute.replace(':id', element.id);
                     var trankrip =  "<td>"+
-                                        "<a href='"+trankriproute+"'><i class='material-icons'>description</i></a>"+
+                                        "<a href='"+trankriproute+"'><i class='material-icons light-green-text text-darken-2'>description</i></a>"+
                                     "</td>";
                     var status = "";
                     if(element.status==0)
