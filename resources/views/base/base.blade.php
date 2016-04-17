@@ -5,6 +5,7 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="{{ URL::asset('css/main.css') }}" rel="stylesheet" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
         @yield('moreStyles')
     </head>
     <body class="teal darken-1">

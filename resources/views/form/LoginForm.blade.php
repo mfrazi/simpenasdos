@@ -19,7 +19,7 @@
             <div class="col s10 m4 l4 push-s1 push-m4 push-l4">
                 <div class="container">
                     <div class="row">
-                        LOGO DISINI
+                            <img class="responsive-img" src="img/logotc.PNG">
                     </div>
                 </div>
                 <div class="section"></div>
@@ -28,16 +28,16 @@
                         {{ csrf_field() }}
                         <div class="row">
                             <div class="input-field col s12">
-                                <i class="material-icons prefix light-green-text text-darken-2">account_circle</i>
+                                <i class="material-icons prefix teal-text text-darken-2">account_circle</i>
                                 <input autofocus="autofocus" name="username" id="username" type="text" class="validate" required="" aria-required="true">
-                                <label for="username">Username</label>
+                                <label for="username" class="teal-text text-darken-2">Username</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
-                                <i class="material-icons prefix light-green-text text-darken-2">vpn_key</i>
+                                <i class="material-icons prefix teal-text text-darken-2">vpn_key</i>
                                 <input name="password" id="password" type="password" class="validate" required="" aria-required="true">
-                                <label for="password">Password</label>
+                                <label for="password" class="teal-text text-darken-2">Password</label>
                             </div>
                         </div>
                         <button class="btn waves-effect waves-light orange darken-2" type="submit" name="action">

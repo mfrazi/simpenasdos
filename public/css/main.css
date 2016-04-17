@@ -1,3 +1,11 @@
+.navbar-fixed .nav-wrapper .brand-logo .navbar-logo {
+  height: 46px;
+}
+@media (max-width: 600px) {
+  .navbar-fixed .nav-wrapper .brand-logo .navbar-logo {
+    height: 36px;
+  }
+}
 .input-field label {
     color: #76b343;
 }
