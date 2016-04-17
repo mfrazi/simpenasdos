@@ -39,8 +39,7 @@ fk role -->
             </div>
             <div class="row">
                 <div class="section"></div>
-                <div class="input-field col s1"></div>
-                <div class="input-field col s10">
+                <div class="col s10 push-s1">
                     <a class="black-text" href="{{ route('dosen.create') }}"><i class="material-icons left light-green-text text-darken-2">queue</i>Tambah Dosen</a>
                     <div class="section"></div>
                 <!--</div>
