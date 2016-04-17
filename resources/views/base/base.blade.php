@@ -2,7 +2,7 @@
     <head>
         <title>@yield('title')</title>
         <link href="{{ URL::asset('css/materialize.min.css') }}" rel="stylesheet" />
-        <!--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="{{ URL::asset('css/main.css') }}" rel="stylesheet" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         @yield('moreStyles')
