@@ -98,6 +98,6 @@
 @endsection
 
 @section('moreScripts')
-<script src="{{ URL::asset('js/dosenedit.js') }}"></script>
+    <script src="{{ URL::asset('js/dosenedit.js') }}"></script>
 @endsection
 
