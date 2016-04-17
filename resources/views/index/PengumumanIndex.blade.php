@@ -27,7 +27,7 @@
             @foreach($announs as $announ)
                 <div class="z-depth-1">
                     <div class="divider"></div>
-                    <div class="orange" style ="padding:3 15">
+                    <div class="orange white-text" style ="padding:3 15">
                         <h3>
                             {{ $announ->title }}
                         </h3>
@@ -44,4 +44,11 @@
     </div>
 </div>
 <div class="section"></div>
+@endsection
+@section('moreScripts')
+    <script>
+        $(document).ready(function () {
+            $(".button-collapse").sideNav();
+        });
+    </script>
 @endsection

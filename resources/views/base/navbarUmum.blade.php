@@ -1,7 +1,7 @@
 <div class="navbar-fixed">
 	<nav>
 	    <div class="nav-wrapper blue-grey darken-4">
-	        <a href="#" class="brand-logo">Logo</a>
+	        <a href="#" class="brand-logo">Simpenasdos</a>
 	        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
 	        <ul id="nav-mobile" class="right hide-on-med-and-down">
 	            <li><a href="{{ route('daftar.create') }}">Daftar</a></li>
@@ -14,10 +14,3 @@
 	    </div>
 	</nav>
 </div>
-@section('moreScripts')
-    <script>
-        $(document).ready(function () {
-            $(".button-collapse").sideNav();
-        });
-    </script>
-@endsection

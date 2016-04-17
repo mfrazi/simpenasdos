@@ -46,7 +46,7 @@
     <div class="row">
         <div class="col l10 push-l1">
             <table class="responsive-table highlight">
-                <thead class="orange darken-2">
+                <thead class="orange darken-2 white-text">
                     <tr>
                         <th data-field="name">Nama</th>
                         <th data-field="NRP">NRP</th>
@@ -70,6 +70,7 @@
 <script>
 $(document).ready(function(){
     $('select').material_select();
+    $(".button-collapse").sideNav();
     $.ajaxSetup({
         headers:{
             'X-CSRF-Token': $('input[name="_token"]').val()

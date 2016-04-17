@@ -54,7 +54,10 @@
 
 @section('moreScripts')
     <script>
-        $(document).ready(function() {$('select').material_select();});
+        $(document).ready(function() {
+            $('select').material_select();
+            $(".button-collapse").sideNav();
+        });
     </script>
 @endsection
 

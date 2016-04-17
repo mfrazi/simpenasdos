@@ -36,7 +36,7 @@
             <div class="section"></div>
             <div class="col l10 push-l1">
                 <table class="responsive-table striped">
-                    <thead class="orange darken-2">
+                    <thead class="orange darken-2 white-text">
                     <tr>
                         <th data-field="id">NRP</th>
                         <th data-field="name">Nama</th>
@@ -74,7 +74,10 @@
 
 @section('moreScripts')
     <script>
-        $(document).ready(function() {$('select').material_select();});
+        $(document).ready(function() {
+            $('select').material_select();
+            $(".button-collapse").sideNav();
+        });
     </script>
 @endsection
 

@@ -99,5 +99,10 @@
 
 @section('moreScripts')
     <script src="{{ URL::asset('js/dosenedit.js') }}"></script>
+    <script>
+        $(document).ready(function() {    
+            $(".button-collapse").sideNav();
+        });
+    </script>
 @endsection
 

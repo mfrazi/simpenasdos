@@ -91,5 +91,9 @@
 @endsection
 
 @section('moreScripts')
-<script src="{{ URL::asset('js/dosencreate.js') }}"></script>
+<script src="{{ URL::asset('js/dosencreate.js') }}">
+    $(document).ready(function() {    
+        $(".button-collapse").sideNav();
+    });
+</script>
 @endsection
