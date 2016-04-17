@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         @yield('moreStyles')
     </head>
-    <body class="teal">
+    <body class="teal lighten-1">
         @yield('navbar')
         <div>
             @yield('content')

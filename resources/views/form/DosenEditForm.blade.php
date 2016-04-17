@@ -46,9 +46,8 @@
             </div>
             <div class="divider"></div>
             <div class="section"></div>
-            <div class="row">
-                <div class="input-field col s1"></div>
-                <div class="input-field col s10">
+            <div class="row">\
+                <div class="input-field col s10 push-s1">
                     <input value="{{ $user->name }}" name="name" id="name" type="text" class="validate">
                     <label for="name">Nama</label>
                 </div>

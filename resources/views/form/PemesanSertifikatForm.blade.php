@@ -11,7 +11,7 @@
     <br/>
     <br/>
     <div class="container">
-        <div class="row white">
+        <div class="row white z-depth-2">
             @if(Session::has('success') || Session::has('fail'))
                 <div class="row center">
                     <div class="col s10 push-s1 m6 push-m3 l6 push-l3">
@@ -35,7 +35,7 @@
             </div>
             <div class="section"></div>
             <div class="col l10 push-l1">
-                <table class="responsive-table highlight">
+                <table class="responsive-table striped">
                     <thead class="orange darken-2">
                     <tr>
                         <th data-field="id">NRP</th>
