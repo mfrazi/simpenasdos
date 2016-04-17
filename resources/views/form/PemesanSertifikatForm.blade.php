@@ -16,7 +16,7 @@
                 <div class="row center">
                     <div class="col s10 push-s1 m6 push-m3 l6 push-l3">
                         @if(Session::has('success'))
-                            <div class="card-panel light-blue">
+                            <div class="card-panel orange darken-2">
                                 <span class="white-text">{{ Session::get('success') }}</span>
                             </div>
                         @endif
@@ -57,7 +57,7 @@
                                 @if($orderer->is_certificate_printed)
                                     Tercetak
                                 @else
-                                    <a class="waves-effect waves-light btn" href="{{ route('sertifikat.print', $orderer->id) }}">cetak</a>
+                                    <a class="waves-effect waves-light light-green darken-2 btn" href="{{ route('sertifikat.print', $orderer->id) }}">cetak</a>
                                 @endif
                             </td>
                         </tr>
