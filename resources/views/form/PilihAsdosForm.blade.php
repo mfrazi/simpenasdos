@@ -53,7 +53,9 @@
                         <th data-field="IPK">IPK</th>
                         <th data-field="IPK">Nilai Kelas</th>
                         <th data-field="trankrip">Trankrip</th>
+                        @if($pilih == 1)
                         <th data-field="status">Status</th>
+                        @endif
                     </tr>
                 </thead>
 
@@ -111,7 +113,10 @@ $(document).ready(function(){
                             '<td>'+element.gpa+'</td>'+
                             '<td>'+element.mark+'</td>'+
                             trankrip+
-                            status+
+                            @if($pilih == 1)
+                                status
+                            @endif
+                            +
                         '</tr>'
                     );
                 });

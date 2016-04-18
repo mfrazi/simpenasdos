@@ -26,14 +26,18 @@ class PendaftaranController extends Controller
     {
         $setting = Setting::all();
         $semester_id = $setting[0]->semester_id;
+        $pendaftaran = $setting[0]->status_pendaftaran;
         $classrooms = Classroom::where('semester_id', $semester_id)->get();
-        return view('form.PendaftarForm', ['classrooms' => $classrooms]);
+        return view('form.PendaftarForm', ['classrooms' => $classrooms, 'pendaftaran' => $pendaftaran]);
     }
 
     public function store(Request $request)
     {
+        return redirect()->route('daftar.create');
         $data = Input::all();
         $transkrip = Input::file('transkrip');
+
+        echo $transkrip;
 
         $rules = [
             'name' => 'required',
@@ -69,6 +73,7 @@ class PendaftaranController extends Controller
         $registrant->save();
 
         $file_name = (string)$registrant->id.'transkripxyz.'.$transkrip->getClientOriginalExtension();
+        //return $file_name;
         $destination_path = storage_path().'/transkrip';
         if(!$transkrip->move($destination_path, $file_name)){
             Session::flash('fail', 'Gagal mengupload file transkrip');
@@ -88,9 +93,13 @@ class PendaftaranController extends Controller
             else $registrant->is_experienced = false;
             $registrant->save();
 
-            $file_name = (string)$registrant->id.'transkripxyz.'.$transkrip->getClientOriginalExtension();
-            $destination_path = storage_path().'/transkrip';
-            if(!$transkrip->move($destination_path, $file_name)){
+            $file_name2 = (string)$registrant->id.'transkripxyz.'.$transkrip->getClientOriginalExtension();
+
+            $transkrip = $destination_path."/".$file_name;
+            $destination_path2 = storage_path().'/transkrip';
+            $transkrip2 = $destination_path2."/".$file_name2;
+            
+            if(!copy($transkrip, $transkrip2)){
                 Session::flash('fail', 'Gagal mengupload file transkrip');
                 return redirect()->route('daftar.create');
             }

@@ -31,13 +31,15 @@ class AsistenDosenController extends Controller
                             $user_id = Auth::user()->id;
                             $query->where('user_id', '=', $user_id);
                         })->get();
+            $pilih = 1;
         }
 
         else if($role_id == 3){
             $classrooms = Classroom::where('semester_id', '=', Setting::find(1)->semester_id)->get();
+            $pilih = Setting::find(1)->status_kaprodi;
         }
-        //return $classroom;
-        return view('form.PilihAsdosForm', ['classrooms' => $classrooms]);
+        
+        return view('form.PilihAsdosForm', ['classrooms' => $classrooms, 'pilih' => $pilih]);
     }
 
     public function getregistrant($id){
@@ -91,7 +93,6 @@ class AsistenDosenController extends Controller
                                         $query->where('semester_id', '=', $semester_aktif);
                                     })
                                     ->with('classroom')->get();
-        return $assistants;
         return view('index.ListAsistenIndex', ['assistants'=>$assistants]);
     }
 

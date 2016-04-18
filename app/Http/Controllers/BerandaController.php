@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Setting;
+
 use Auth;
 
 class BerandaController extends Controller
@@ -22,7 +24,8 @@ class BerandaController extends Controller
                 return redirect()->route('berandaadmin');
         }
         else{
-            return view('beranda.berandaUmum');
+            $pengumuman = Setting::find(1)->status_pengumuman;
+            return view('beranda.berandaUmum', ['pengumuman' => $pengumuman]);
         }
     }
 

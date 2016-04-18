@@ -6,10 +6,16 @@
     @include('base.navbarUmum')
 @endsection
 
+@section('moreStyles')
+    <script src="{{ URL::asset('sweetalert/sweetalert.min.js') }}"></script>
+    <link href="{{ URL::asset('sweetalert/sweetalert.css') }}" rel="stylesheet" />
+@endsection
+
 @section('content')
 <br />
 <br />
 <div class="row container">
+    @if($pendaftaran == 1)
     @if(Session::has('success') || Session::has('fail'))
         <div class="row center">
             <div class="col s10 push-s1 m6 push-m3 l10 push-l1">
@@ -57,17 +63,18 @@
 
         <div class="row">
             <div class="input-field col s10 push-s1">
-                <input name="ipk" id="ipk" type="number" step="0.01" min="0" max="4" class="validate" required="" aria-required="true">
+                <input name="ipk" id="ipk" type="number" step="0.01" min="0" max="4" class="validate" required="" aria-required="true"/>
                 <label for="ipk">IPK</label>
             </div>
         </div>
 
         <div class="row">
-            <div class="input-field col s10 push-s1">
-                    <input name="pengalaman" type="checkbox" class="filled-in" id="pengalaman" checked="checked" />
-                    <label for="pengalaman">Memiliki pengalaman menjadi asisten sebelumnya</label>
-            </div>
+             <div class="col s10 push-s1">
+                <input name="pengalaman" type="checkbox" class="filled-in" id="pengalaman" />
+                <label for="pengalaman">Memiliki pengalaman menjadi asisten sebelumnya</label>
+             </div>
         </div>
+
         <div class="row">
             <div class="input-field col s12 m3 l7 push-l1">
                 <select name="kelas1">
@@ -78,8 +85,11 @@
                 </select>
             </div>
             <div class="input-field col s12 m3 l3 push-l1">
-                <input name="nilai_kelas1" id="nilai" type="text" class="validate" required="" aria-required="true">
-                <label>Nilai Kelas Terakhir</label>
+                <select name="nilai_kelas1">
+                    <option value="" disabled selected>Nilai Kelas</option>
+                    <option value="A">A</option>
+                    <option value="AB">AB</option>
+                </select>
             </div>
         </div>
 
@@ -93,12 +103,15 @@
                 </select>
             </div>
             <div class="input-field col s12 m3 l3 push-l1">
-                <input name="nilai_kelas2" id="nilai" type="text">
-                <label>Nilai Kelas Terakhir</label>
+                <select name="nilai_kelas2">
+                    <option value="" disabled selected>Nilai Kelas</option>
+                    <option value="A">A</option>
+                    <option value="AB">AB</option>
+                </select>
             </div>
         </div>
 
-        <div class="file-field input-field col l10 push-l1">
+        <div class="file-field col s10 push-s1">
             <div class="btn light-green darken-2">
                 <span>Transkrip</span>
                 <input name="transkrip" type="file">
@@ -110,21 +123,47 @@
         <div class="row"></div>
         <div class="row">
             <div class="col l11">
-                <button class="btn waves-effect waves-light center right light-green darken-2" type="submit">
+                <button id="submit_button" class="btn waves-effect waves-light center right light-green darken-2" type="submit">
                     Daftar
                 </button>
             </div>
         </div>
         <div class="section"></div>
     </form>
+    @else
+        <div class="row center">
+            <div class="col s10 push-s1 m6 push-m3 l10 push-l1">
+                <div class="card-panel orange darken-2">
+                    <span class="white-text">Pendaftaran Belum Dibuka</span>
+                </div>
+            </div>
+        </div>
+    @endif
 </div>
 @endsection
 
 @section('moreScripts')
-<script>
-$(document).ready(function() {
-    $('select').material_select();
-    $(".button-collapse").sideNav();
-});
-</script>
+    <script>
+        $('#submit_button').on('click',function(e){
+            e.preventDefault();
+            var form = $(this).parents('form');
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this imaginary file!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            }, function(isConfirm){
+                if (isConfirm) form.submit();
+            });
+        })
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('select').material_select();
+            $(".button-collapse").sideNav();
+        });
+    </script>
 @endsection
