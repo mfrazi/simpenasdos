@@ -12,6 +12,11 @@ fk role -->
     @include('base.navbarAdmin')
 @endsection
 
+@section('moreStyles')
+    <script src="{{ URL::asset('sweetalert/sweetalert.min.js') }}"></script>
+    <link href="{{ URL::asset('sweetalert/sweetalert.css') }}" rel="stylesheet" />
+@endsection
+
 @section('content')
 <br />
 <br />
@@ -40,13 +45,11 @@ fk role -->
             <div class="row">
                 <div class="section"></div>
                 <div class="col s10 push-s1">
-                    <a class="black-text" href="{{ route('dosen.create') }}"><i class="material-icons left light-green-text text-darken-2">queue</i>Tambah Dosen</a>
-                    <div class="section"></div>
-                <!--</div>
-            </div>
-            <div class="row">
-                <div class="input-field col s1"></div>
-                <div class="input-field col s10">-->
+                    <div class ="row">
+                        <div class="col s4 m4 l4">
+                            <a class="waves-effect waves-light light-green darken-2 btn" href="{{ route('dosen.create') }}"><i class="material-icons left">queue</i>Tambah Dosen</a>
+                        </div>
+                    </div>
                     <table class="responsive-table highlight">
                         <thead class="white-text orange darken-2">
                             <tr>
@@ -68,7 +71,7 @@ fk role -->
                                     <td>{{ $user->NIP }}</td>
                                     <td>{{ $user->username }}</td>
                                     <td class="center"><a href="{{ route('dosen.edit', ['dosen' => $user->id]) }}"><i class="material-icons light-green-text text-darken-2">mode_edit</i></a></td>
-                                    <td class="center"><a class="red-text" href="{{ route('dosen.destroy', ['dosen' => $user->id]) }}"><i class="material-icons">delete</i></a></td>
+                                    <td class="center"><a class="red-text delete_button" href="{{ route('dosen.destroy', ['dosen' => $user->id]) }}"><i class="material-icons">delete</i></a></td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -82,8 +85,23 @@ fk role -->
 @endsection
 @section('moreScripts')
     <script>
-        $(document).ready(function () {
-            $(".button-collapse").sideNav();
+        $('.delete_button').click(function(e){
+            e.preventDefault();
+            var href = $(this).attr('href');
+            swal({
+                title: "Apakah anda yakin?",
+                text: "Data dosen yang dihapus tidak akan dapat digunakan lagi",
+                type: "warning",
+                showCancelButton: true,
+                cancelButtonText: "Batal",
+                confirmButtonColor: "#F44336",
+                confirmButtonText: "Ya, hapus dosen !",
+                closeOnConfirm: false
+            }, function(isConfirm){
+                if (isConfirm){
+                    window.location.href = href;
+                }
+            });
         });
     </script>
 @endsection

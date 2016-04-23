@@ -10,36 +10,35 @@ use App\Http\Controllers\Controller;
 use App\Announcement;
 
 use Auth;
+use File;
 use Input;
+use Response;
 use Session;
 
 class PengumumanController extends Controller {
     public function index() {
         $announs = Announcement::all();
-        $exts = array('png','jpg', 'jpeg', 'pdf', 'doc', 'docx', 'txt', 'xls', 'xlsx', 'zip', 'rar');
         $path = [];
         foreach ($announs as $announ) {
             $path[$announ->id] = [];
-            $tmp = [];
-            if($announ->jumlah_file > 0){
-                for ($i = 1; $i <= $announ->jumlah_file; $i++) {
-                    foreach($exts as $ext) {
-                        if(file_exists(public_path().'/filepengumuman/'.$announ->id.'pengumuman'.$i.'.'.$ext)){
-                            array_push($tmp, 'filepengumuman/'.$announ->id.'pengumuman'.$i.'.'.$ext);
-                        }
+            if($announ->total_file > 0){
+                $files = glob(public_path().'/filepengumuman/'.$announ->id.'pengumuman*');
+                foreach($files as $file){
+                    if(file_exists($file)){
+                        $file_name = explode("/filepengumuman/", $file);
+                        array_push($path[$announ->id], $file_name[1]);
                     }
                 }
             }
-            array_push($path[$announ->id], $tmp);
         }
-        return view('index.PengumumanIndex', ['announs' => $announs, 'path' => $path]);
+        return view('index.PengumumanIndex', ['announs' => $announs, 'path' => $path, 'navbar' => 3]);
     }
 
     public function create() {
-        return view('form.PengumumanForm');
+        return view('form.PengumumanForm', ['navbar' => 3]);
     }
 
-    public function store(Request $request) {
+    public function store() {
         $pengumuman = Input::all();
         $files = Input::file('file');
 
@@ -53,17 +52,17 @@ class PengumumanController extends Controller {
             $destination_path = public_path().'/filepengumuman';
             $count = 1;
             foreach ($files as $file){
-                $file_name = $announ->id.'pengumuman'.(string)$count.'.'.$file->getClientOriginalExtension();
+                $file_name = $announ->id.'pengumumanxasdfmnb'.$file->getClientOriginalName();
                 $file->move($destination_path, $file_name);
                 echo $file_name;
                 $count = $count+1;
             }
-            $announ->jumlah_file = $count-1;
+            $announ->total_file = $count-1;
             $announ->save();
         }
 
         Session::flash('success', 'Pengumuman berhasil dibuat');
-        return redirect()->route('pengumuman.create');
+        return redirect()->route('pengumuman.index');
     }
 
     public function show($id)
@@ -74,7 +73,17 @@ class PengumumanController extends Controller {
     public function edit($id)
     {
         $data = Announcement::find($id);
-        return view('form.PengumumanForm', ['data' => $data]);
+        $path = [];
+        if($data->total_file > 0){
+            $files = glob(public_path().'/filepengumuman/'.$id.'pengumuman*');
+            foreach($files as $file){
+                if(file_exists($file)){
+                    $file_name = explode("/filepengumuman/", $file);
+                    array_push($path, $file_name[1]);
+                }
+            }
+        }
+        return view('form.PengumumanEditForm', ['data' => $data, 'path' => $path, 'navbar' => 3]);
     }
 
     public function update($id)
@@ -92,23 +101,46 @@ class PengumumanController extends Controller {
             $destination_path = public_path().'/filepengumuman';
             $count = $announ->total_file+1;
             foreach ($files as $file){
-                $file_name = $announ->id.'pengumuman'.(string)$count.'.'.$file->getClientOriginalExtension();
+                $file_name = $announ->id.'pengumumanxasdfmnb'.$file->getClientOriginalName();
                 $file->move($destination_path, $file_name);
                 echo $file_name;
                 $count = $count+1;
             }
-            $announ->jumlah_file = $count-1;
+            $announ->total_file = $count-1;
             $announ->save();
         }
 
-        Session::flash('success', 'Pengumuman berhasil dibuat');
-        return redirect()->route('pengumuman.create');
+        Session::flash('success', 'Pengumuman berhasil diubah');
+        return redirect()->route('pengumuman.edit', ['id' => $id]);
     }
 
     public function destroy($id)
     {
         $announ = Announcement::find($id);
         $announ->delete();
+        Session::flash('destroy', 'Pengumuman berhasil dihapus');
+        return redirect()->back();
+    }
+
+    public function download($name){
+        $path = public_path().'/filepengumuman/'.$name;
+        $name = explode('xasdfmnb', $name);
+        $type = File::mimeType($path);
+        $headers = ['Content-Type: '.$type];
+        return Response::download($path, $name[1], $headers);
+    }
+
+    public function sisipan($name)
+    {
+        $get_id = explode('pengumuman', $name);
+        $id = (int)$get_id[0];
+        $announ = Announcement::find($id);
+        $announ->total_file = ($announ->total_file)-1;
+        $announ->save();
+
+        $file_name = public_path().'/filepengumuman/'.$name;
+        unlink($file_name);
+        Session::flash('destroy', 'File sisipan berhasil dihapus');
         return redirect()->back();
     }
 }

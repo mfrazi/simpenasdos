@@ -18,7 +18,7 @@ class PengaturanController extends Controller
     public function index(){
         $semesters = Semester::all();
         $setting = Setting::all()->first();
-        return view('form.PengaturanForm', ['semesters' => $semesters, 'setting' => $setting]);
+        return view('form.PengaturanForm', ['semesters' => $semesters, 'setting' => $setting, 'navbar' => 6]);
     }
 
     public function update(){

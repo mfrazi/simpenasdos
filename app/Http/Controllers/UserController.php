@@ -19,11 +19,11 @@ class UserController extends Controller{
         $users = User::where('role_id', '=', 1)
                 ->select('id', 'name', 'NIP', 'username')
                 ->get();
-        return view('index.DosenIndex', ['users' => $users]);
+        return view('index.DosenIndex', ['users' => $users, 'navbar' => 1]);
     }
 
     public function create(){
-        return view('form.DosenForm');
+        return view('form.DosenForm', ['navbar' => 1]);
     }
 
     public function store(){
@@ -38,7 +38,7 @@ class UserController extends Controller{
         $validator = Validator::make(Input::all(), $rules);
 
         if($validator->fails()){
-            return view('form.DosenForm')
+            return view('form.DosenForm', ['navbar' => 1])
                     ->withErrors($validator)
                     ->withInput(Input::except('password'));
         }
@@ -61,12 +61,12 @@ class UserController extends Controller{
 
     public function edit($id){
         $user = User::where('id', '=', $id)->first();
-        return view('form.DosenEditForm', ['user' => $user, 'ok' => 2]);
+        return view('form.DosenEditForm', ['user' => $user, 'ok' => 2, 'navbar' => 1]);
     }
 
     public function selfedit(){
         $user = User::where('id', '=', Auth::user()->id)->first();
-        return view('form.DosenEditForm', ['user' => $user, 'ok' => Auth::user()->role_id]);
+        return view('form.DosenEditForm', ['user' => $user, 'ok' => Auth::user()->role_id, 'navbar' => 7]);
     }
 
     public function update($id){

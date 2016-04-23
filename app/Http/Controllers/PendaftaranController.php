@@ -17,23 +17,22 @@ use Validator;
 
 class PendaftaranController extends Controller
 {
-    public function index()
-    {
-        //
-    }
-
     public function create()
     {
         $setting = Setting::all();
         $semester_id = $setting[0]->semester_id;
         $pendaftaran = $setting[0]->status_pendaftaran;
         $classrooms = Classroom::where('semester_id', $semester_id)->get();
-        return view('form.PendaftarForm', ['classrooms' => $classrooms, 'pendaftaran' => $pendaftaran]);
+        return view('form.PendaftaranForm', ['classrooms' => $classrooms, 'pendaftaran' => $pendaftaran]);
     }
 
-    public function store(Request $request)
+    public function store()
     {
-        return redirect()->route('daftar.create');
+        $setting = Setting::all();
+        $pendaftaran = $setting[0]->status_pendaftaran;
+        if($pendaftaran == 0)
+            return redirect()->route('daftar.create');
+
         $data = Input::all();
         $transkrip = Input::file('transkrip');
 

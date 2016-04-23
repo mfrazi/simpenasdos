@@ -58,7 +58,7 @@ class SertifikatController extends Controller
 
     public function showOrder() {
         $orderers = Registrant::where('is_order_certificate', true)->with('classroom')->get();
-        return view('form.PemesanSertifikatForm', ['orderers'=>$orderers]);
+        return view('form.PemesanSertifikatForm', ['orderers'=>$orderers, 'navbar' => 4]);
     }
 
     public function printCertificate($id) {

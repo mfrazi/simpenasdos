@@ -29,13 +29,13 @@ class KelasController extends Controller
         $classroom = Classroom::with('course')
                     ->where('semester_id', '=', $this->semester_aktif)
                     ->groupBy('course_id')->select('course_id')->get();
-        return view('index.KelasIndex', ['classrooms' => $classroom]);
+        return view('index.KelasIndex', ['classrooms' => $classroom, 'navbar' => 2]);
     }
 
     public function create()
     {
         $courses = Course::all();
-        return view('form.KelasForm', ['courses' => $courses]);
+        return view('form.KelasForm', ['courses' => $courses, 'navbar' => 2]);
     }
 
     public function store()
@@ -54,7 +54,7 @@ class KelasController extends Controller
             $class->save();
         }
         Session::flash('success', 'Kelas baru berhasil ditambahkan');
-        return redirect()->route('kelas.create');
+        return redirect()->route('kelas.create', ['navbar' => 2]);
     }
 
     public function show($id)
@@ -63,7 +63,7 @@ class KelasController extends Controller
                      ->where('semester_id', '=', $this->semester_aktif)
                      ->with('classuser')->get();
         $dosen = User::select('id','name')->where('role_id', '=', 1)->get();
-        return view('form.KelasEditForm', ['kelas' => $classroom, 'dosen' => $dosen]);
+        return view('form.KelasEditForm', ['kelas' => $classroom, 'dosen' => $dosen, 'navbar' => 5]);
     }
 
     public function update()

@@ -47,6 +47,10 @@ Route::group(['middleware' => ['auth', 'role:admin,superuser']], function(){
     Route::get('kelas/{id}/destroy', ['uses' => 'KelasController@destroy', 'as' => 'kelas.destroy']);
 
     Route::resource('pengumuman', 'PengumumanController', ['except' => ['show', 'update', 'destroy']]);
+    Route::post('pengumuman/{id}/update', ['uses' => 'PengumumanController@update', 'as' => 'pengumuman.update']);
+    Route::get('pengumuman/{id}/destroy', ['uses' => 'PengumumanController@destroy', 'as' => 'pengumuman.destroy']);
+    Route::get('sisipan/download/{name}', ['uses' => 'PengumumanController@download', 'as' => 'sisipan.download']);
+    Route::get('sisipan/destory/{name}', ['uses' => 'PengumumanController@sisipan', 'as' => 'sisipan.destroy']);
 
     Route::get('pengaturan', ['uses' => 'PengaturanController@index', 'as' => 'pengaturan']);
     Route::post('pengaturan', ['uses' => 'PengaturanController@update', 'as' => 'pengaturan.update']);

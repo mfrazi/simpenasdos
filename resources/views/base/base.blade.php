@@ -15,6 +15,11 @@
         </div>
         <script src="{{ URL::asset('js/jquery.min.js') }}"></script>
         <script src="{{ URL::asset('js/materialize.min.js') }}"></script>
+        <script>
+            $(document).ready(function () {
+                $(".button-collapse").sideNav();
+            });
+        </script>
         @yield('moreScripts')
     </body>
 </html>

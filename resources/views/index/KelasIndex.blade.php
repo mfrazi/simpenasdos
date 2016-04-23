@@ -34,10 +34,13 @@
                 </div>
                 <div class="row">
                     <div class="section"></div>
-                    <div class="input-field col s1"></div>
-                    <div class="input-field col s10">
-                        <a class="black-text" href="{{ route('kelas.create') }}"><i class="material-icons light-green-text text-darken-2 left">queue</i>Tambah Kelas</a>
-                        <div class="section"></div>
+                    <div class="input-field col s10 push-s1">
+                        <div class ="row">
+                            <div class="col s4 m4 l4">
+                                <a class="waves-effect waves-light light-green darken-2 btn" href="{{ route('kelas.create') }}"><i class="material-icons left">queue</i>Tambah Kelas</a>
+                            </div>
+                        </div>
+
                         @foreach($classrooms as $k)
                         <a href="{{ route('kelas.show', ['kelas' => $k->course_id]) }}">
                             <div class="card-panel orange darken-2 z-depth-1">

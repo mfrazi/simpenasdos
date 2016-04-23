@@ -29,7 +29,7 @@
         <div class="row">
             <div class="section"></div>
             <div class="input-field col s12 m10 l12">
-                <input name="title" id="title" type="text" class="validate">
+                <input name="title" id="title" type="text" class="validate" required="" aria-required="true"/>
                 <label for="title">Judul</label>
             </div>
         </div>

@@ -39,7 +39,7 @@ class AsistenDosenController extends Controller
             $pilih = Setting::find(1)->status_kaprodi;
         }
         
-        return view('form.PilihAsdosForm', ['classrooms' => $classrooms, 'pilih' => $pilih]);
+        return view('form.PilihAsdosForm', ['classrooms' => $classrooms, 'pilih' => $pilih, 'navbar' => 1]);
     }
 
     public function getregistrant($id){
@@ -93,14 +93,14 @@ class AsistenDosenController extends Controller
                                         $query->where('semester_id', '=', $semester_aktif);
                                     })
                                     ->with('classroom')->get();
-        return view('index.ListAsistenIndex', ['assistants'=>$assistants]);
+        return view('index.AsistenIndex', ['assistants'=>$assistants, 'navbar' => 5]);
     }
 
     public  function showCloseRegForm() {
         $setting = Setting::all();
         $semester_id = $setting[0]->semester_id;
         $classrooms = Classroom::where('semester_id', $semester_id)->get();
-        return view('form.CloseRegForm', ['classrooms'=>$classrooms]);
+        return view('form.CloseRegForm', ['classrooms'=>$classrooms, 'navbar' => 5]);
     }
 
     public function addAssistant() {
@@ -151,7 +151,6 @@ class AsistenDosenController extends Controller
             array_push($data, $tmp);
         }
 
-        //return $data;
         if(Auth::check())
             $role = Auth::user()->role_id;
         if($role == 2 || $status_pengumuman==1){

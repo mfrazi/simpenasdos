@@ -25,19 +25,19 @@ class BerandaController extends Controller
         }
         else{
             $pengumuman = Setting::find(1)->status_pengumuman;
-            return view('beranda.berandaUmum', ['pengumuman' => $pengumuman]);
+            return view('beranda.berandaUmum', ['pengumuman' => $pengumuman, 'navbar' => 0]);
         }
     }
 
     public function admin(){
-        return view('beranda.berandaAdmin');
+        return view('beranda.berandaAdmin', ['navbar' => 0]);
     }
 
     public function dosen(){
-        return view('beranda.berandaDosen');
+        return view('beranda.berandaDosen', ['navbar' => 0]);
     }
 
     public function kaprodi(){
-        return view('beranda.berandaKaprodi');
+        return view('beranda.berandaKaprodi', ['navbar' => 0]);
     }
 }
