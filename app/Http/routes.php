@@ -30,6 +30,7 @@ Route::group(['middleware' => ['auth', 'role:admin,kaprodi,dosen']], function(){
 
 Route::group(['middleware' => ['auth', 'role:kaprodi,dosen']], function(){
     Route::get('berandadosen', ['uses' => 'BerandaController@dosen', 'as' => 'berandadosen']);
+    Route::get('berandakaprodi', ['uses' => 'BerandaController@kaprodi', 'as' => 'berandakaprodi']);
     Route::get('pilihasdos', ['uses' => 'AsistenDosenController@index', 'as' => 'pilihasdos.index']);
     Route::get('getregistrant/{id}', ['uses' => 'AsistenDosenController@getregistrant', 'as' => 'pilihasdos.registrant']);
     Route::post('pilihasdos', ['uses' => 'AsistenDosenController@update', 'as' => 'pilihasdos.update']);
@@ -67,3 +68,4 @@ Route::get('asisten/download', ['uses' => 'AsistenDosenController@downloadDaftar
 Route::get('sertifikat/{nrp}', ['uses' => 'SertifikatController@showConfirmation', 'as' => 'sertifikat.showConfirmation']);
 Route::post('sertifikat/{nrp}', ['uses' => 'SertifikatController@order', 'as' => 'sertifikat.order']);
 Route::get('sisipan/download/{name}', ['uses' => 'PengumumanController@download', 'as' => 'sisipan.download']);
+Route::get('manual/{name}', ['uses' => 'UserController@downloadManual', 'as' => 'download.manual']);

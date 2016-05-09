@@ -13,6 +13,8 @@ use Hash;
 use Input;
 use Session;
 use Validator;
+use File;
+use Response;
 
 class UserController extends Controller{
     public function index(){
@@ -125,5 +127,12 @@ class UserController extends Controller{
         $user->delete();
         Session::flash('success', 'Data dosen berhasil dihapus');
         return redirect()->route('dosen.index');
+    }
+
+    public function downloadManual($name) {
+        $name = $name.'.pdf';
+        $path = public_path().'/manual/'.$name;
+        $headers = ['Content-Type: pdf'];
+        return Response::download($path, $name, $headers);
     }
 }

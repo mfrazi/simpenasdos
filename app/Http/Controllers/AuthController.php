@@ -40,8 +40,10 @@ class AuthController extends Controller {
             );
             if(Auth::attempt($userdata)){
                 $role = Auth::user()->role_id;
-                if($role==1 || $role==3)
+                if($role==1)
                     return redirect()->route('berandadosen');
+                else if($role==3)
+                    return redirect()->route('berandakaprodi');
                 else if($role==2)
                     return redirect()->route('berandaadmin');
             }

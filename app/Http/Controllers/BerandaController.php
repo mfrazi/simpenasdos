@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Announcement;
+use App\Role;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -19,9 +20,12 @@ class BerandaController extends Controller
             $name = Auth::user()->name;
             view()->share('name', $name);
             $role = Auth::user()->role_id;
-            if($role==1 || $role==3)
-                return redirect()->route('berandadosen');
-            elseif($role==2)
+            $role = Role::find($role)->type;
+            if($role == 'dosen')
+                return redirect()->route('berandadosen', ['role' => 'dosen']);
+            else if($role == 'kaprodi')
+                return redirect()->route('berandadosen', ['role' => 'kaprodi']);
+            elseif($role == 'admin')
                 return redirect()->route('berandaadmin');
         }
         else{
@@ -50,10 +54,10 @@ class BerandaController extends Controller
     }
 
     public function dosen(){
-        return view('beranda.berandaDosen', ['navbar' => 0]);
+        return view('beranda.berandaDosen', ['navbar' => 0, 'role' => 'dosen']);
     }
 
     public function kaprodi(){
-        return view('beranda.berandaKaprodi', ['navbar' => 0]);
+        return view('beranda.berandaDosen', ['navbar' => 0, 'role' => 'kaprodi']);
     }
 }
