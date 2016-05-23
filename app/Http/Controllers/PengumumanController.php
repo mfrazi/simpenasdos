@@ -123,7 +123,7 @@ class PengumumanController extends Controller {
     }
 
     public function download($name){
-        $name = $name.'.pdf';
+        $name = $name;
         $path = public_path().'/filepengumuman/'.$name;
         $name = explode('xasdfmnb', $name);
         $type = File::mimeType($path);

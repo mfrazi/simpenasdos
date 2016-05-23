@@ -148,12 +148,13 @@
             e.preventDefault();
             var form = $(this).parents('form');
             swal({
-                title: "Are you sure?",
-                text: "You will not be able to recover this imaginary file!",
-                type: "warning",
+                title: "Daftar menjadi asdos?",
+                text: "Pastikan semua data sudah benar",
+                type: "info",
                 showCancelButton: true,
-                confirmButtonColor: "#DD6B55",
-                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "Batal",
+                confirmButtonColor: "#689f38 ",
+                confirmButtonText: "Ya, daftar!",
                 closeOnConfirm: false
             }, function(isConfirm){
                 if (isConfirm) form.submit();
