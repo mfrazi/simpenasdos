@@ -137,7 +137,7 @@ class AsistenDosenController extends Controller
         $tmp_data = $assistants = Registrant::where('status', true)
                             ->whereHas('classroom', function($query) use($semester_aktif){
                                 $query->where('semester_id', '=', $semester_aktif);
-                            })->select('NRP', 'name', 'classroom_id')->with('classroom')->get();
+                            })->select('NRP', 'name', 'classroom_id')->groupBy('classroom_id')->get();
 
         $data = [];
         $cnt = 1;
@@ -154,9 +154,55 @@ class AsistenDosenController extends Controller
         if(Auth::check())
             $role = Auth::user()->role_id;
         if($role == 2 || $status_pengumuman==1){
-            Excel::create('Daftar Asisten Dosen', function($excel) use($data){
-                $excel->sheet('Asisten Dosen', function($sheet) use($data){
+            Excel::create('Daftar Asisten Dosen', function($excel) use($data, $cnt){
+                $excel->sheet('Asisten Dosen', function($sheet) use($data, $cnt){
                     $sheet->fromArray($data);
+                    $sheet->prependRow(1, array(
+                        'Daftar Assiten Dosen Semester'
+                    )); 
+                    $sheet->prependRow(2, array(
+                        'Tahun Pelajaran'
+                    ));
+                    $sheet->prependRow(3, array(''));
+                    
+                    $sheet->mergeCells('A1:D1');
+                    $sheet->mergeCells('A2:D2');
+                    $sheet->cell('A1:A2', function($cells) {
+                        $cells->setAlignment('center');
+                        $cells->setFont(array(
+                            'size'       => '15',
+                            'bold'       =>  true
+                        ));
+                    });
+                    $sheet->cell('A4:D4', function($cells) {
+                        $cells->setAlignment('center');
+                        $cells->setValignment('center');
+                        $cells->setFont(array(
+                            'bold'       =>  true
+                        ));
+                    });
+                    $sheet->setWidth(array(
+                        'A' => 5,
+                        'B' => 15,
+                        'C' => 45,
+                        'D' => 45
+                    ));
+                    $sheet->setHeight(array(
+                        3 => 20,
+                        4 => 35
+                    ));
+                    for ($i=0; $i<$cnt; $i++){
+                        $sheet->setBorder('A'.($i+4).':D'.($i+4), 'thin');
+                        if($i!=0){
+                            $sheet->cell('A'.($i+4).':D'.($i+4), function($cells) {
+                                $cells->setValignment('center');
+                            });
+                            $sheet->cell('A'.($i+4), function($cells) {
+                                $cells->setAlignment('center');
+                            });
+                            $sheet->setHeight($i+4, 22);
+                        }
+                    }
                 });
             })->export('xls');
         }

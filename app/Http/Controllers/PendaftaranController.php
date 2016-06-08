@@ -3,11 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Setting;
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-
 use App\Classroom;
 use App\Registrant;
 
@@ -35,8 +30,6 @@ class PendaftaranController extends Controller
 
         $data = Input::all();
         $transkrip = Input::file('transkrip');
-
-        echo $transkrip;
 
         $rules = [
             'name' => 'required',
