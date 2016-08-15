@@ -7,14 +7,13 @@
 @endsection
 
 @section('content')
-
     <br/>
     <br/>
     <div class="container">
         <div class="row white z-depth-2">
             @if(Session::has('success') || Session::has('fail'))
                 <div class="row center">
-                    <div class="col s10 push-s1 m6 push-m3 l6 push-l3">
+                    <div class="col s10 push-s1 m6 push-m3">
                         @if(Session::has('success'))
                             <div class="card-panel orange darken-2">
                                 <span class="white-text">{{ Session::get('success') }}</span>
@@ -34,8 +33,8 @@
                 </h5>
             </div>
             <div class="section"></div>
-            <div class="col l10 push-l1">
-                <table class="responsive-table striped">
+            <div class="col s12 l10 push-l1">
+                <table class="responsive-table bordered">
                     <thead class="orange darken-2 white-text">
                     <tr>
                         <th data-field="id">NRP</th>

@@ -37,7 +37,7 @@
             </div>
         @endif
 
-        <form class="col s10 push-s1 m8 push-m2 l6 push-l3 z-depth-2 white" style="padding:0;" method="POST" action="{{ route('dosen.update', ['dosen' => $user->id]) }}">
+        <form class="col s12 m8 push-m2 l6 push-l3 z-depth-2 white" style="padding:0;" method="POST" action="{{ route('dosen.update', ['dosen' => $user->id]) }}">
             {{ csrf_field() }}
             <div class="section center white-text blue-grey darken-4">
                 <h5>
@@ -82,13 +82,23 @@
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s10 push-s1">
-                    <a href="{{ route('dosen.index') }}" class="btn waves-effect orange darken-1 left">
+                <div class="input-field col s10 m5 push-s1 push-m1 hide-on-small-only">
+                    <a href="{{ route('dosen.index') }}" class="btn waves-effect orange darken-2 accent-2 left">
                         Kembali
                     </a>
-                    <button id="submitButton" class="btn waves-effect light-green darken-2 right" type="submit">
+                </div>
+                <div class="input-field col s10 m5 push-s1 push-m1">
+                    <button id="submitButton" class="btn waves-effect light-green darken-2 hide-on-med-and-up" type="submit">
                         Ubah
                     </button>
+                    <button id="submitButton" class="btn waves-effect light-green darken-2 right hide-on-small-only" type="submit">
+                        Ubah
+                    </button>
+                </div>
+                <div class="input-field col s10 m5 push-s1 push-m1 hide-on-med-and-up">
+                    <a href="{{ route('dosen.index') }}" class="btn waves-effect orange darken-2 accent-2 left">
+                        Kembali
+                    </a>
                 </div>
             </div>
             <div class="section"></div>

@@ -1,7 +1,7 @@
 <div class="navbar-fixed">
 	<nav>
 	    <div class="nav-wrapper blue-grey darken-4">
-	        <a href="#" class="brand-logo" style="padding:10">
+	        <a href="{{ route('berandadosen') }}" class="brand-logo" style="padding:10px;">
                 <img class="navbar-logo" src="{{ URL::asset('img/logotc_navbar.PNG') }}">
             </a>
 	        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>

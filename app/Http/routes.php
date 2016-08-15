@@ -12,6 +12,7 @@
 */
 
 Route::get('/', ['uses' => 'BerandaController@umum', 'as' => 'berandaumum']);
+Route::get('pengumumanasisten', ['uses' => 'BerandaController@pengumuman', 'as' => 'pengumumanasisten']);
 
 Route::get('daftar', ['uses' => 'PendaftaranController@create', 'as' => 'daftar.create']);
 Route::post('daftar', ['uses' => 'PendaftaranController@store', 'as' => 'daftar.store']);

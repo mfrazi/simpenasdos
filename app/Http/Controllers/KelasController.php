@@ -27,6 +27,7 @@ class KelasController extends Controller
     public function index()
     {
         $classroom = Classroom::with('course')
+                    ->orderBy('name')
                     ->where('semester_id', '=', $this->semester_aktif)
                     ->groupBy('course_id')->select('course_id')->get();
         return view('index.KelasIndex', ['classrooms' => $classroom, 'navbar' => 2]);

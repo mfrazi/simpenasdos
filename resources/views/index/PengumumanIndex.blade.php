@@ -43,18 +43,25 @@
     <div class="row">
         <div class="col s10 push-s1">
             <div class ="row">
-                <div class="col s4 m4 l4">
-                    <a class="waves-effect waves-light light-green darken-2 btn" href="{{ route('pengumuman.create') }}"><i class="material-icons left">queue</i>Buat Pengumuman</a>
+                <div class="col s12 m7 l6">
+                    <a class="waves-effect waves-light light-green darken-2 btn" href="{{ route('pengumuman.create') }}"><i class="material-icons left hide-on-med-and-down">queue</i>Buat Pengumuman</a>
                 </div>
             </div>
             @foreach($announs as $announ)
                 <div class="z-depth-1">
                     <div class="divider"></div>
-                    <div class="orange white-text" style ="padding:3 15">
+                    <div class="orange white-text" style ="padding:3px 15px;">
                         <h5>
-                            {{ $announ->title }}
-                            <a href="{{ route('pengumuman.destroy', ['id' => $announ->id]) }}" class="red-text material-icons right delete_button">delete</a>
-                            <a style="padding-right: 5px;" href="{{ route('pengumuman.edit', ['id' => $announ->id]) }}" class="white-text material-icons right">mode_edit</a>
+                            <div class="row">
+                                <div class="col s12 m10">
+                                    {{ $announ->title }}
+                                </div>
+                                <div class="col s12 section hide-on-med-and-up"><br/></div>
+                                <div class="col s12 m2">
+                                    <a href="{{ route('pengumuman.destroy', ['id' => $announ->id]) }}" class="red-text material-icons right delete_button">delete</a>
+                                    <a style="padding-right: 5px;" href="{{ route('pengumuman.edit', ['id' => $announ->id]) }}" class="white-text material-icons right">mode_edit</a>
+                                </div>
+                            </div>
                         </h5>
                     </div>
                     <div style ="padding:3px 15px">

@@ -73,13 +73,19 @@ class AsistenDosenController extends Controller
     }
 
     public function trankrip($id){
-        $exts = array('png','jpg', 'jpeg', 'pdf', 'doc', 'docx', 'txt', 'xls');
+        $exts = array('doc', 'docx');
         $path = "";
         foreach($exts as $ext) {
             if(file_exists(storage_path().'/transkrip/'.$id.'transkripxyz.'.$ext)){
                 $path = storage_path().'/transkrip/'.$id.'transkripxyz.'.$ext;
             }
         }
+
+        if($path==""){
+            print "Maaf, file trankrip untuk asisten dosen yang diplih tidak tersedia";
+            return;
+        }
+
         $extension = File::extension($path);
         $type = File::mimeType($path);
         $headers = ['Content-Type: '.$type];
@@ -132,6 +138,9 @@ class AsistenDosenController extends Controller
     public function downloadDaftarAsisten(){
         $status_pengumuman = Setting::find(1)->status_pengumuman;
         $semester_aktif = Setting::find(1)->semester_id;
+        $semester = $semester_aktif%2?'Ganjil':'Genap'; 
+        $tahun_pelajaran = substr(Setting::find(1)->semester->name, -9);
+        
         $role = -1;
 
         $tmp_data = $assistants = Registrant::where('status', true)
@@ -146,35 +155,40 @@ class AsistenDosenController extends Controller
             $tmp['No'] = $cnt;
             $tmp['NRP'] = $x->NRP;
             $tmp['Nama'] = $x->name;
-            $tmp['Kelas'] = $x->classroom->name;
+            $tmp['Mata Kuliah'] = substr($x->classroom->name, 0, -2);
+            $tmp['Kelas'] = substr($x->classroom->name, -1);
             $cnt = $cnt + 1;
             array_push($data, $tmp);
         }
 
         if(Auth::check())
             $role = Auth::user()->role_id;
-        if($role == 2 || $status_pengumuman==1){
-            Excel::create('Daftar Asisten Dosen', function($excel) use($data, $cnt){
-                $excel->sheet('Asisten Dosen', function($sheet) use($data, $cnt){
+        
+        if($role == 2 || $status_pengumuman == 1) {
+            Excel::create('Daftar Asisten Dosen', function($excel) use($data, $cnt, $semester, $tahun_pelajaran){
+                $excel->sheet('Asisten Dosen', function($sheet) use($data, $cnt, $semester, $tahun_pelajaran){
                     $sheet->fromArray($data);
                     $sheet->prependRow(1, array(
-                        'Daftar Assiten Dosen Semester'
+                        'Daftar Asisten Dosen Semester '.$semester
                     )); 
                     $sheet->prependRow(2, array(
-                        'Tahun Pelajaran'
+                        'Tahun Pelajaran '.$tahun_pelajaran
                     ));
-                    $sheet->prependRow(3, array(''));
-                    
-                    $sheet->mergeCells('A1:D1');
-                    $sheet->mergeCells('A2:D2');
-                    $sheet->cell('A1:A2', function($cells) {
+                    $sheet->prependRow(3, array(
+                        'Teknik Informatika ITS'
+                    ));
+                    $sheet->prependRow(4, array(''));
+                    $sheet->mergeCells('A1:E1');
+                    $sheet->mergeCells('A2:E2');
+                    $sheet->mergeCells('A3:E3');
+                    $sheet->cell('A1:A3', function($cells) {
                         $cells->setAlignment('center');
                         $cells->setFont(array(
-                            'size'       => '15',
+                            'size'       => '14',
                             'bold'       =>  true
                         ));
                     });
-                    $sheet->cell('A4:D4', function($cells) {
+                    $sheet->cell('A5:E5', function($cells) {
                         $cells->setAlignment('center');
                         $cells->setValignment('center');
                         $cells->setFont(array(
@@ -184,30 +198,34 @@ class AsistenDosenController extends Controller
                     $sheet->setWidth(array(
                         'A' => 5,
                         'B' => 15,
-                        'C' => 45,
-                        'D' => 45
+                        'C' => 40,
+                        'D' => 40,
+                        'E' => 7
                     ));
                     $sheet->setHeight(array(
-                        3 => 20,
-                        4 => 35
+                        4 => 20,
+                        5 => 35
                     ));
-                    for ($i=0; $i<$cnt; $i++){
-                        $sheet->setBorder('A'.($i+4).':D'.($i+4), 'thin');
-                        if($i!=0){
-                            $sheet->cell('A'.($i+4).':D'.($i+4), function($cells) {
+                    for($i=0; $i<$cnt; $i++) {
+                        $sheet->setBorder('A'.($i+5).':E'.($i+5), 'thin');
+                        if($i!=0) {
+                            $sheet->cell('A'.($i+5).':E'.($i+5), function($cells) {
                                 $cells->setValignment('center');
                             });
-                            $sheet->cell('A'.($i+4), function($cells) {
+                            $sheet->cell('A'.($i+5), function($cells) {
                                 $cells->setAlignment('center');
                             });
-                            $sheet->setHeight($i+4, 22);
+                            $sheet->cell('E'.($i+5), function($cells) {
+                                $cells->setAlignment('center');
+                            });
+                            $sheet->setHeight($i+5, 22);
                         }
                     }
                 });
             })->export('xls');
         }
-        else{
-            return route('berandaumum');
+        else {
+            abort(404);
         }
     }
 }

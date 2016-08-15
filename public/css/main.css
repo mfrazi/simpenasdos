@@ -67,10 +67,6 @@ input[type="checkbox"]:checked + label::before{
 .select-wrapper li span input[type=checkbox]{
     color: #000;
 }
-th{
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
 
 /* ganti placeholder */
 input::-webkit-input-placeholder {

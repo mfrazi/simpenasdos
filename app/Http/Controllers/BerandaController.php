@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
+
+use Illuminate\Http\Request;
+use App\Http\Requests;
+
 use App\Announcement;
 use App\Role;
-use Illuminate\Http\Request;
-
-use App\Http\Requests;
-use App\Http\Controllers\Controller;
-
+use App\Registrant;
+use App\Semester;
 use App\Setting;
 
 use Auth;
 
-class BerandaController extends Controller
-{
-    public function umum(){
+class BerandaController extends Controller {
+    public function umum() {
         if(Auth::check()){
             $name = Auth::user()->name;
             view()->share('name', $name);
@@ -45,8 +45,26 @@ class BerandaController extends Controller
             }
 
             $pengumuman = Setting::find(1)->status_pengumuman;
-            return view('beranda.berandaUmum', ['pengumuman' => $pengumuman, 'navbar' => 0, 'announcements' => $announcements, 'path' => $path]);
+            $pendaftaran = Setting::find(1)->status_pendaftaran;
+            $semester = Setting::find(1)->semester->name;
+
+            return view('beranda.berandaUmum', ['pengumuman' => $pengumuman, 'pendaftaran' => $pendaftaran, 'semester' => $semester, 'navbar' => 0, 'announcements' => $announcements, 'path' => $path]);
         }
+    }
+
+    public function pengumuman(){
+        $pengumuman = Setting::find(1)->status_pengumuman;
+        if(!$pengumuman){
+            return abort(404);
+        }
+
+        $semester_aktif = Setting::find(1)->semester_id;
+        $semester = Semester::find($semester_aktif)->name;
+        $assistants = Registrant::where('status', true)
+            ->whereHas('classroom', function($query) use($semester_aktif){
+                $query->where('semester_id', '=', $semester_aktif);
+            })->get();
+        return view('beranda.PengumumanAsisten', ['assistants' => $assistants, 'semester' => $semester]);
     }
 
     public function admin(){

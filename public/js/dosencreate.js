@@ -1,4 +1,4 @@
-$("#submitButton").attr('disabled', true);
+$(".submitButton").attr('disabled', true);
 $("#nip").keyup(function(){
     $("#username").val(this.value);
 });
@@ -9,15 +9,15 @@ function checkPasswordMatch() {
 
     if (password != confirmPassword){
         $("#checkpassword").html('<div class="red-text text-accent-1">Password tidak sama</div>');
-        $("#submitButton").attr('disabled', true);
+        $(".submitButton").attr('disabled', true);
     }
     else if(password!="" && confirmPassword!=""){
         $("#checkpassword").html('');
-        $("#submitButton").attr('disabled', false);
+        $(".submitButton").attr('disabled', false);
     }
     else if(password=="" && confirmPassword==""){
         $("#checkpassword").html('');
-        $("#submitButton").attr('disabled', true);
+        $(".submitButton").attr('disabled', true);
     }
 }
 

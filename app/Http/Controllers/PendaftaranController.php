@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
+use App\Http\Requests;
+
 use App\Setting;
 use App\Classroom;
 use App\Registrant;
@@ -10,26 +13,43 @@ use Input;
 use Session;
 use Validator;
 
-class PendaftaranController extends Controller
-{
-    public function create()
-    {
-        $setting = Setting::all();
-        $semester_id = $setting[0]->semester_id;
-        $pendaftaran = $setting[0]->status_pendaftaran;
-        $classrooms = Classroom::where('semester_id', $semester_id)->get();
-        return view('form.PendaftaranForm', ['classrooms' => $classrooms, 'pendaftaran' => $pendaftaran]);
+class PendaftaranController extends Controller {
+    private $setting = [];
+    
+    public function __construct() {
+        $settings = Setting::all();
+        $this->setting['semester_id'] = $settings[0]->semester_id;
+        $this->setting['status_pendaftaran'] = $settings[0]->status_pendaftaran;
+    }
+    
+    private function createRegistrant($data, $class, $mark) {
+        $registrant = new Registrant();
+        $registrant->NRP = $data['NRP'];
+        $registrant->name = $data['name'];
+        $registrant->gpa = $data['ipk'];
+        $registrant->phone_number = $data['phone_number'];
+        $registrant->classroom_id = $class;
+        $registrant->mark = $mark;
+        $registrant->is_experienced = isset($data['pengalaman']);
+        $registrant->save();
+        return $registrant->id;
+    }
+    
+    public function create() {
+        $classrooms = Classroom::where('semester_id', $this->setting['semester_id'])->get();
+        return view('form.PendaftaranForm', [
+            'classrooms' => $classrooms,
+            'pendaftaran' => $this->setting['status_pendaftaran']
+        ]);
     }
 
-    public function store()
-    {
-        $setting = Setting::all();
-        $pendaftaran = $setting[0]->status_pendaftaran;
-        if($pendaftaran == 0)
-            return redirect()->route('daftar.create');
+    public function store(Request $request) {
+        if($this->setting['status_pendaftaran'] == 0)
+            return redirect()->route('berandaumum');
 
-        $data = Input::all();
+        $data = $request->all();
         $transkrip = Input::file('transkrip');
+        $ext = $transkrip->getClientOriginalExtension();
 
         $rules = [
             'name' => 'required',
@@ -40,32 +60,22 @@ class PendaftaranController extends Controller
             'nilai_kelas1' => 'required',
             'transkrip' => 'required'
         ];
-
-        $validator = Validator::make(Input::all(), $rules);
-        if($validator->fails()){
-            Session::flash('fail', 'Gagal melakukan pendaftaran');
+        $validator = Validator::make($request->all(), $rules);
+        if($validator->fails()) {
+            Session::flash('fail', 'Gagal melakukan pendaftaran, pastikan semua data sudah diisi dengan benar');
             return redirect()->route('daftar.create');
         }
-
-        if (isset($data['kelas2']) && $data['kelas1'] == $data['kelas2']) {
+        if($ext != "doc" && $ext != "docx"){
+            Session::flash('fail', 'Gagal mengunggah file transkrip, pastikan file sesuai format yang ditentukan');
+            return redirect()->route('daftar.create');
+        }
+        if (isset($data['kelas2']) && ($data['kelas1'] == $data['kelas2'])) {
             Session::flash('fail', 'Kelas yang dipilih tidak boleh sama');
             return redirect()->route('daftar.create');
         }
 
-        $registrant = new Registrant();
-        $registrant->NRP = $data['NRP'];
-        $registrant->name = $data['name'];
-        $registrant->gpa = $data['ipk'];
-        $registrant->phone_number = $data['phone_number'];
-        $registrant->mark = $data['nilai_kelas1'];
-        $registrant->classroom_id = $data['kelas1'];
-        $registrant->status = 0;
-        if (isset($data['pengalaman'])) $registrant->is_experienced = true;
-        else $registrant->is_experienced = false;
-        $registrant->save();
-
-        $file_name = (string)$registrant->id.'transkripxyz.'.$transkrip->getClientOriginalExtension();
-        //return $file_name;
+        $registrant = $this->createRegistrant($data, $data['kelas1'], $data['nilai_kelas1']);
+        $file_name = (string)$registrant.'transkripxyz.'.$ext;
         $destination_path = storage_path().'/transkrip';
         if(!$transkrip->move($destination_path, $file_name)){
             Session::flash('fail', 'Gagal mengupload file transkrip');
@@ -73,19 +83,8 @@ class PendaftaranController extends Controller
         }
 
         if (isset($data['kelas2'])) {
-            $registrant = new Registrant();
-            $registrant->NRP = $data['NRP'];
-            $registrant->name = $data['name'];
-            $registrant->gpa = $data['ipk'];
-            $registrant->phone_number = $data['phone_number'];
-            $registrant->mark = $data['nilai_kelas2'];
-            $registrant->classroom_id = $data['kelas2'];
-            $registrant->status = 0;
-            if (isset($data['pengalaman'])) $registrant->is_experienced = true;
-            else $registrant->is_experienced = false;
-            $registrant->save();
-
-            $file_name2 = (string)$registrant->id.'transkripxyz.'.$transkrip->getClientOriginalExtension();
+            $registrant = $this->createRegistrant($data, $data['kelas2'], $data['nilai_kelas2']);
+            $file_name2 = (string)$registrant.'transkripxyz.'.$transkrip->getClientOriginalExtension();
 
             $transkrip = $destination_path."/".$file_name;
             $destination_path2 = storage_path().'/transkrip';
@@ -96,7 +95,7 @@ class PendaftaranController extends Controller
                 return redirect()->route('daftar.create');
             }
         }
-        Session::flash('success', 'Pendaftaran berhasil dilakukan');
+        Session::flash('success', 'Pendaftaran asisten dosen berhasil dilakukan. Terima kasih.');
         return redirect()->route('daftar.create');
     }
 }

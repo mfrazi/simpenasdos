@@ -11,25 +11,83 @@
     <br/>
     <div class="row container">
         @if($pengumuman == 1)
-            <div class="row center">
-                <div class="col s10 push-s1 m6 push-m3 l6 push-l3">
-                    <div class="card-panel orange darken-2">
-                    <span class="white-text">
-                        <a class="white-text" href="{{ route('download.daftar.asisten') }}">
-                            Pengumuman Daftar Asisten
-                        </a>
-                    </span>
+            <div class="row">
+                <div class="col s12  m8 push-m2 l8 push-l2">
+                    <div class="card orange darken-1">
+                        <div class="card-content white-text center">
+                            <span class="card-title"><strong>Pengumuman Asisten Dosen</strong></span>
+                            <p>I am a very simple card. I am good at containing small bits of information.
+                                I am convenient because I require little markup to use effectively.</p>
+                        </div>
+                        <div class="card-action white">
+                            <div class="row" style="margin-bottom: 0;">
+                                <div class="col s6 center-align"><a href="{{ route('download.daftar.asisten') }}">Download Excel</a></div>
+                                <div class="col s6 center-align"><a target="_blank" href="{{ route('pengumumanasisten') }}">Lihat Online</a></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         @endif
 
+        @if($pendaftaran==1 && $pengumuman==0)
+            <div class="row hide-on-large-only">
+                <div class="col s12">
+                    <div class="card orange darken-1">
+                        <div class="card-content teal lighten-5 black-text">
+                            <div class="card-title center"><strong>Pendaftaran Asisten Dosen</strong></div>
+                            <div class="card-title center"><strong>{{ $semester }}</strong></div>
+                            <div class="section"></div>
+                            <p class="flow-text" style="text-align: justify;">Pendaftaran asisten dosen dibuka bagi mahasiswa yang telah lulus dengan nilai minimal AB (bukan mengulang) untuk mata kuliah/padanan mata kuliah yang dipilih, dan bersedia menjalankan tugas sebagai asisten dosen antara lain:</p>
+                            <ul class="flow-text" style="text-align: justify;">
+                                <li style='list-style-type:square; margin-left:10px;'>Menyiapakan Absensi Kelas dan mengembalikannya lagi pada tempatnya</li>
+                                <li style='list-style-type:square; margin-left:10px;'>Mendampingi dosen dalam setiap pelaksanaan perkuliahan</li>
+                                <li style='list-style-type:square; margin-left:10px;'>Melaksanakan kegiatan responsi dan praktikum perkuliahan</li>
+                                <li style='list-style-type:square; margin-left:10px;'>Membantu dosen Evaluasi dan Koreksi tugas-tugas perkuliahan</li>
+                                <li style='list-style-type:square; margin-left:10px;'>Melakukan rekapitulasi prosentase kehadiran setiap mahasiswa pada akhir semester dan menyerahkan ke dosen pengajar serta Sekretariat (Sdr. Yudi Mulyono/Soegeng Santoso)</li>
+                            </ul>
+                        </div>
+                        <div class="card-action white">
+                            <div class="row" style="margin-bottom: 0;">
+                                <div class="col s12 center-align"><a href="{{ route('daftar.create') }}"><strong>Daftar Sekarang</strong></a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row hide-on-med-and-down">
+                <div class="col s12" style="font-size: 120%;">
+                    <div class="card orange darken-1">
+                        <div class="card-content teal lighten-5 black-text">
+                            <div class="card-title center"><strong>Pendaftaran Asisten Dosen</strong></div>
+                            <div class="card-title center"><strong>{{ $semester }}</strong></div>
+                            <div class="section"></div>
+                            <p style="text-align: justify;">Pendaftaran asisten dosen dibuka bagi mahasiswa yang telah lulus dengan nilai minimal AB (bukan mengulang) untuk mata kuliah/padanan mata kuliah yang dipilih, dan bersedia menjalankan tugas sebagai asisten dosen antara lain:</p>
+                            <ul style="text-align: justify;">
+                                <li style='list-style-type:square; margin-left:10px;'>Menyiapakan Absensi Kelas dan mengembalikannya lagi pada tempatnya</li>
+                                <li style='list-style-type:square; margin-left:10px;'>Mendampingi dosen dalam setiap pelaksanaan perkuliahan</li>
+                                <li style='list-style-type:square; margin-left:10px;'>Melaksanakan kegiatan responsi dan praktikum perkuliahan</li>
+                                <li style='list-style-type:square; margin-left:10px;'>Membantu dosen Evaluasi dan Koreksi tugas-tugas perkuliahan</li>
+                                <li style='list-style-type:square; margin-left:10px;'>Melakukan rekapitulasi prosentase kehadiran setiap mahasiswa pada akhir semester dan menyerahkan ke dosen pengajar serta Sekretariat (Sdr. Yudi Mulyono/Soegeng Santoso)</li>
+                            </ul>
+                        </div>
+                        <div class="card-action white">
+                            <div class="row" style="margin-bottom: 0;">
+                                <div class="col s12 center-align"><a href="{{ route('daftar.create') }}"><strong>Daftar Sekarang</strong></a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
 
+        <h3 class="white-text center-align">Pengumuman</h3>
+        <div class="divider"></div>
+        <br/>
         <div class="row  ">
-            <div class="col s10 push-s1">
+            <div class="col s12 l10 push-l1">
                 @foreach($announcements as $announcement)
                     <div class="white">
-                        <div class="divider"></div>
                         <div class="orange white-text" style="padding:3px 15px 3px 15px">
                             <h5>
                                 {{ $announcement->title }}
@@ -61,7 +119,7 @@
 @section('moreScripts')
     <script>
         $(document).ready(function () {
-            $(".button-collapse").sideNav();
+            $('.modal-trigger').leanModal();
         });
     </script>
 @endsection

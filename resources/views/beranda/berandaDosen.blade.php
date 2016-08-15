@@ -8,7 +8,6 @@
 
 @section('content')
     @if ($role == 'dosen')
-        role == {{ $role }}
         <div class="row center" style="margin-top: 18%;">
             <div class="col s10 push-s1 m6 push-m3 l6 push-l3">
                 <a class="white-text" href="{{ route('download.manual', ['name' => 'dosen']) }}">

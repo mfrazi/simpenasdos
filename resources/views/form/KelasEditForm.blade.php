@@ -2,6 +2,10 @@
 
 @section('title', 'Kelas')
 
+@section('moreStyles')
+    <link href="{{ URL::asset('css/selectize.css') }}" rel="stylesheet" />
+@append
+
 @section('navbar')
     @include('base.navbarAdmin')
 @endsection
@@ -31,13 +35,13 @@
         <div class="section"></div>
         @foreach($kelas as $k)
             <div class="row">
-                <div class="input-field col s12 m8 l6 push-l1">
-                    <input name="{{ 'kelasid'.$k->id }}" value="{{ $k->id }}" type="hidden"></input>
-                    <input name="{{ 'kelasname'.$k->id }}" value="{{ $k->name }}" type="text" readonly></input>
+                <div class="input-field col s10 l6 push-s1 push-l1">
+                    <input name="{{ 'kelasid'.$k->id }}" value="{{ $k->id }}" type="hidden"/>
+                    <input name="{{ 'kelasname'.$k->id }}" value="{{ $k->name }}" type="text" readonly/>
                     <label>Kelas</label>
                 </div>
-                <div class="input-field col s12 m4 l4 push-l1">
-                    <select id="dosen" name="{{ $k->id.'dosen[]' }}" multiple>
+                <div class="input-field col s10 l4 push-s1 push-l1" style="top: -10%;">
+                    <select class="dosen" name="{{ $k->id.'dosen[]' }}" multiple>
                         <option value="" disabled selected>Daftar Dosen</option>
                         <?php $tmp=[]; ?>
                         @foreach($k->classuser as $u)
@@ -59,15 +63,26 @@
                     </label>
                 </div>
             </div>
+            <br/>
         @endforeach
         <div class="row">
-            <div class="input-field col l10 push-l1">
-                <a href="{{ route('kelas.index') }}"}} class="btn waves-effect orange darken-2 accent-2 left">
+            <div class="input-field col s10 m5 push-s1 push-m1 hide-on-small-only">
+                <a href="{{ route('kelas.index') }}" class="btn waves-effect orange darken-2 accent-2 left">
                     Kembali
                 </a>
-                <button id="submitButton" class="btn waves-effect light-green darken-2 right" type="submit">
+            </div>
+            <div class="input-field col s10 m5 push-s1 push-m1">
+                <button id="submitButton" class="btn waves-effect light-green darken-2 hide-on-med-and-up" type="submit">
                     Ubah
                 </button>
+                <button id="submitButton" class="btn waves-effect light-green darken-2 right hide-on-small-only" type="submit">
+                    Ubah
+                </button>
+            </div>
+            <div class="input-field col s10 m5 push-s1 push-m1 hide-on-med-and-up">
+                <a href="{{ route('kelas.index') }}" class="btn waves-effect orange darken-2 accent-2 left">
+                    Kembali
+                </a>
             </div>
         </div>
         <div class="section"></div>
@@ -80,10 +95,20 @@
 @endsection
 
 @section('moreScripts')
+<script src="{{ URL::asset('js/selectize.js') }}"></script>
 <script>
     $(document).ready(function(){
-        $('select').material_select();
         $(".button-collapse").sideNav();
+        $('.dosen').selectize({
+            delimiter: ',',
+            persist: false,
+            create: function(input) {
+                return {
+                    value: input,
+                    text: input
+                }
+            }
+        });
     });
 </script>
 @endsection

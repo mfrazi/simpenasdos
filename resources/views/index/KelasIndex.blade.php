@@ -25,8 +25,8 @@
 
 <div class="container">
     <div class="row">
-        <div class="input-field col s1"></div>
-            <div class="col s10 white z-depth-2" style="padding:0">
+        <div class="input-field col s12">
+            <div class="col col s12 m8 push-m2 white z-depth-2" style="padding:0">
                 <div class="section center white-text blue-grey darken-4">
                     <h5>
                         Kelas
@@ -36,8 +36,11 @@
                     <div class="section"></div>
                     <div class="input-field col s10 push-s1">
                         <div class ="row">
-                            <div class="col s4 m4 l4">
-                                <a class="waves-effect waves-light light-green darken-2 btn" href="{{ route('kelas.create') }}"><i class="material-icons left">queue</i>Tambah Kelas</a>
+                            <div class="col s12 m l5">
+                                <a class="waves-effect waves-light light-green darken-2 btn" href="{{ route('kelas.create') }}">
+                                    <i class="hide-on-med-and-down material-icons left">queue</i>
+                                    Tambah Kelas
+                                </a>
                             </div>
                         </div>
 
@@ -55,26 +58,6 @@
             </div>
         </div>
     </div>
-
-    <!-- 
-    <div class="row">
-        
-    </div>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col s12 m8 l8 push-m2 push-l2">
-            @foreach($classrooms as $k)
-            <a href="{{ route('kelas.show', ['kelas' => $k->course_id]) }}">
-                <div class="card-panel light-blue darken-1">
-                    <span class="white-text">
-                        {{ $k->course->name }}
-                    </span>
-                </div>
-            </a>
-            @endforeach
-        </div>
-    </div> -->
 </div>
 @endsection
 @section('moreScripts')
