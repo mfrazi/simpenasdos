@@ -15,11 +15,13 @@ class UsersTableSeeder extends Seeder
             [
                 'name' => 'Administrator',
                 'username' => 'admin',
+                'NIP' => '-',
                 'password' => Hash::make('sokadmin'),
                 'role_id' => 2
             ],[
                 'name' => 'Kaprodi',
                 'username' => 'kaprodi',
+                'NIP' => '-',
                 'password' => Hash::make('sokkaprodi'),
                 'role_id' => 3
             ],[
