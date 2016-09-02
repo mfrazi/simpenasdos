@@ -34,6 +34,8 @@
             </div>
             <div class="section"></div>
             <div class="col s12 l10 push-l1">
+                <i>* Silakan tekan tombol</i>&nbsp&nbspBELUM TERCETAK <i>untuk menandai pesanan sertifikat sudah dicetak</i>
+                <div class="section"></div>
                 <table class="responsive-table bordered">
                     <thead class="orange darken-2 white-text">
                     <tr>
@@ -41,7 +43,7 @@
                         <th data-field="name">Nama</th>
                         <th data-field="price">Nomor HP</th>
                         <th data-field="price">Mata Kuliah</th>
-                        <th data-field="price">Cetak</th>
+                        <th data-field="price">Status Cetak</th>
                     </tr>
                     </thead>
 
@@ -56,7 +58,7 @@
                                 @if($orderer->is_certificate_printed)
                                     Tercetak
                                 @else
-                                    <a class="waves-effect waves-light light-green darken-2 btn" href="{{ route('sertifikat.print', $orderer->id) }}">cetak</a>
+                                    <a class="waves-effect waves-light light-green darken-2 btn" href="{{ route('sertifikat.print', $orderer->id) }}">Belum tercetak</a>
                                 @endif
                             </td>
                         </tr>

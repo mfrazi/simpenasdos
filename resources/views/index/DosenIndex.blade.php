@@ -29,7 +29,7 @@
 
 <div class="containter">
     <div class="row">
-        <div class="col s12 m10 l8 push-m1 push-l2">
+        <div class="col s12 m10 push-m1">
             <div class="white z-depth-2">
                 <div class="section center white-text blue-grey darken-4">
                     <h5>

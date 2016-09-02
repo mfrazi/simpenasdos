@@ -15,7 +15,7 @@
 <br />
 <br />
 <div class="row container">
-    @if($pendaftaran == 1)
+    @if($pendaftaran==1 &&  $pengumuman==0)
     @if(Session::has('success') || Session::has('fail'))
         <div class="row center">
             <div class="col s10 push-s1 m6 push-m3 l10 push-l1">
@@ -137,7 +137,7 @@
         <div class="row center">
             <div class="col s10 push-s1 m6 push-m3 l10 push-l1">
                 <div class="card-panel orange darken-2">
-                    <span class="white-text">Pendaftaran Belum Dibuka</span>
+                    <span class="white-text">Pendaftaran Asisten Dosen Sudah Ditutup</span>
                 </div>
             </div>
         </div>

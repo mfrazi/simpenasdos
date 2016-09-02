@@ -343,7 +343,6 @@ class UsersTableSeeder extends Seeder
                 'password' => Hash::make('198607222015042003'),
                 'role_id' => 1
             ]
-            
         ]);
     }
 }

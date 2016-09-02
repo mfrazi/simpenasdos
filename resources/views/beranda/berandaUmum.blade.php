@@ -16,8 +16,7 @@
                     <div class="card orange darken-1">
                         <div class="card-content white-text center">
                             <span class="card-title"><strong>Pengumuman Asisten Dosen</strong></span>
-                            <p>I am a very simple card. I am good at containing small bits of information.
-                                I am convenient because I require little markup to use effectively.</p>
+                            <div class="card-title center"><strong>{{ $semester }}</strong></div>
                         </div>
                         <div class="card-action white">
                             <div class="row" style="margin-bottom: 0;">
@@ -81,8 +80,11 @@
             </div>
         @endif
 
-        <h3 class="white-text center-align">Pengumuman</h3>
-        <div class="divider"></div>
+        @if(count($announcements)>0)
+            <h4 class="white-text center-align">Pengumuman</h4>
+            <div class="divider"></div>
+        @endif
+
         <br/>
         <div class="row  ">
             <div class="col s12 l10 push-l1">

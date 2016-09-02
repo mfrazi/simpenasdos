@@ -20,6 +20,7 @@ class PendaftaranController extends Controller {
         $settings = Setting::all();
         $this->setting['semester_id'] = $settings[0]->semester_id;
         $this->setting['status_pendaftaran'] = $settings[0]->status_pendaftaran;
+        $this->setting['status_pengumuman'] = $settings[0]->status_pengumuman;
     }
     
     private function createRegistrant($data, $class, $mark) {
@@ -39,12 +40,13 @@ class PendaftaranController extends Controller {
         $classrooms = Classroom::where('semester_id', $this->setting['semester_id'])->get();
         return view('form.PendaftaranForm', [
             'classrooms' => $classrooms,
-            'pendaftaran' => $this->setting['status_pendaftaran']
+            'pendaftaran' => $this->setting['status_pendaftaran'],
+            'pengumuman' => $this->setting['status_pengumuman']
         ]);
     }
 
     public function store(Request $request) {
-        if($this->setting['status_pendaftaran'] == 0)
+        if($this->setting['status_pendaftaran'] == 0 || $this->setting['status_pengumuman'] == 1)
             return redirect()->route('berandaumum');
 
         $data = $request->all();
