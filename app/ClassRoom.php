@@ -15,4 +15,7 @@ class Classroom extends Model
     public function classuser() {
 		return $this->hasMany('App\Classuser', 'classroom_id', 'id');
 	}
+	public function registrant() {
+	    return $this->hasMany('App\Registrant', 'classroom_id', 'id');
+    }
 }

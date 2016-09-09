@@ -25,7 +25,7 @@ class PendaftaranController extends Controller {
     
     private function createRegistrant($data, $class, $mark) {
         $registrant = new Registrant();
-        $registrant->NRP = $data['NRP'];
+        $registrant->NRP = $data['nrp'];
         $registrant->name = $data['name'];
         $registrant->gpa = $data['ipk'];
         $registrant->phone_number = $data['phone_number'];
@@ -37,7 +37,8 @@ class PendaftaranController extends Controller {
     }
     
     public function create() {
-        $classrooms = Classroom::where('semester_id', $this->setting['semester_id'])->get();
+        $classrooms = Classroom::where('semester_id', $this->setting['semester_id'])
+                                 ->orderBy('name', 'ASC')->get();
         return view('form.PendaftaranForm', [
             'classrooms' => $classrooms,
             'pendaftaran' => $this->setting['status_pendaftaran'],
@@ -49,24 +50,26 @@ class PendaftaranController extends Controller {
         if($this->setting['status_pendaftaran'] == 0 || $this->setting['status_pengumuman'] == 1)
             return redirect()->route('berandaumum');
 
-        $data = $request->all();
-        $transkrip = Input::file('transkrip');
-        $ext = $transkrip->getClientOriginalExtension();
-
         $rules = [
             'name' => 'required',
-            'NRP' => 'required',
+            'nrp' => 'required',
             'ipk' => 'required',
             'phone_number' => 'required',
             'kelas1' => 'required',
             'nilai_kelas1' => 'required',
             'transkrip' => 'required'
         ];
+
         $validator = Validator::make($request->all(), $rules);
         if($validator->fails()) {
             Session::flash('fail', 'Gagal melakukan pendaftaran, pastikan semua data sudah diisi dengan benar');
             return redirect()->route('daftar.create');
         }
+
+        $data = $request->all();
+        $transkrip = Input::file('transkrip');
+        $ext = $transkrip->getClientOriginalExtension();
+
         if($ext != "doc" && $ext != "docx"){
             Session::flash('fail', 'Gagal mengunggah file transkrip, pastikan file sesuai format yang ditentukan');
             return redirect()->route('daftar.create');
@@ -97,7 +100,7 @@ class PendaftaranController extends Controller {
                 return redirect()->route('daftar.create');
             }
         }
-        Session::flash('success', 'Pendaftaran asisten dosen berhasil dilakukan. Terima kasih.');
+        Session::flash('success', 'Pendaftaran asisten dosen berhasil dilakukan. Terima kasih atas partisipasinya.');
         return redirect()->route('daftar.create');
     }
 }
