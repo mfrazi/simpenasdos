@@ -29,7 +29,8 @@ class KelasController extends Controller
         $classroom = Classroom::with('course')
                     ->orderBy('name')
                     ->where('semester_id', '=', $this->semester_aktif)
-                    ->groupBy('course_id')->select('course_id')->get();
+                    ->groupBy('course_id')->select('course_id')
+                    ->get();
         return view('index.KelasIndex', ['classrooms' => $classroom, 'navbar' => 2]);
     }
 
@@ -42,12 +43,29 @@ class KelasController extends Controller
     public function store()
     {
         $kelas = Course::find(Input::get('kelas'))->name;
-        $jumlah_ada = Classroom::where('course_id', '=', Input::get('kelas'))
+        $kelas_ada = Classroom::where('course_id', '=', Input::get('kelas'))
                         ->where('semester_id', '=', $this->semester_aktif)
-                        ->count();
-        $jumlah = intval(Input::get('jumlah'))+64+$jumlah_ada;
-        for($i=65+$jumlah_ada; $i<=$jumlah; $i++){
-            $data = $kelas." ".chr($i);
+                        ->orderBy('name', 'ASC')
+                        ->get();
+
+        $counterClass = 65;
+        $emptyClass = [];
+        foreach ($kelas_ada as $ka){
+            $getClass = $ka->name[strlen($ka->name)-1];
+            if(chr($counterClass) != $getClass) {
+                array_push($emptyClass, chr($counterClass));
+                $counterClass = $counterClass+1;
+            }
+            $counterClass = $counterClass+1;
+        }
+
+        while (count($emptyClass)<intval(Input::get('jumlah'))){
+            array_push($emptyClass, chr($counterClass));
+            $counterClass = $counterClass+1;
+        }
+
+        foreach ($emptyClass as $eC){
+            $data = $kelas." ".$eC;
             $class = new Classroom();
             $class->name = $data;
             $class->course_id = Input::get('kelas');
@@ -62,15 +80,17 @@ class KelasController extends Controller
     {
         $classroom = Classroom::where('course_id','=',$id)
                      ->where('semester_id', '=', $this->semester_aktif)
-                     ->with('classuser')->get();
+                     ->with('classuser')
+                     ->orderBy('name', 'ASC')->get();
         $dosen = User::select('id','name')->where('role_id', '=', 1)->get();
-        return view('form.KelasEditForm', ['kelas' => $classroom, 'dosen' => $dosen, 'navbar' => 5]);
+        return view('form.KelasEditForm', ['kelas' => $classroom, 'dosen' => $dosen, 'navbar' => 2]);
     }
 
     public function update()
     {
         $data = Input::all();
         $kelas_id = "";
+        $last = "";
         foreach($data as $key => $value){
             if($kelas_id != "" && strpos($key, 'kelasid') !== false){
                 $classuser = Classuser::where('classroom_id', '=', $kelas_id)->get();
@@ -95,18 +115,31 @@ class KelasController extends Controller
                 }
                 $kelas_id="";
             }
+            $last[0] = $key;
+            $last[1] = $kelas_id;
         }
+
+        if(strpos($last[0], 'kelasname') !== false) {
+            $classuser = Classuser::where('classroom_id', '=', $last[1])->get();
+            if(!empty($classuser)){
+                Classuser::where('classroom_id', '=', $last[1])->delete();
+            }
+        }
+
         Session::flash('success', 'Data kelas berhasil diubah');
         return redirect()->back();
     }
 
     public function destroy($id)
     {
-        $classuser = Classuser::where('classroom_id', '=', $id);
-        $classuser->delete();
         $classroom = Classroom::find($id);
-        $classroom->delete();
-        Session::flash('success', 'Data kelas berhasil dihapus');
-        return redirect()->back();
+        if(count($classroom->classuser)==0 && count($classroom->registrant)==0) {
+            $classroom->delete();
+            Session::flash('success', 'Data kelas berhasil dihapus');
+            return redirect()->back();
+        }
+        else{
+            abort(404);
+        }
     }
 }

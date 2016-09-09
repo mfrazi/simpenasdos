@@ -119,6 +119,7 @@
 @endsection
 
 @section('moreScripts')
+    @include('base.footer')
     <script>
         $(document).ready(function () {
             $('.modal-trigger').leanModal();

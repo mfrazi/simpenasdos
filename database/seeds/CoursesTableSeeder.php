@@ -311,5 +311,17 @@ class CoursesTableSeeder extends Seeder
             'name' => 'Topik Khusus Arsitektur dan Jaringan Komputer'
         ]);
 
+        DB::table('courses')->insert([
+            'name' => 'Dasar Pemrograman'
+        ]);
+
+        DB::table('courses')->insert([
+            'name' => 'Struktur Data'
+        ]);
+
+        DB::table('courses')->insert([
+            'name' => 'Sistem dan Teknologi Informasi'
+        ]);
+
     }
 }

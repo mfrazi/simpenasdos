@@ -30,12 +30,14 @@ class AsistenDosenController extends Controller
                         ->whereHas('classuser', function($query){
                             $user_id = Auth::user()->id;
                             $query->where('user_id', '=', $user_id);
-                        })->get();
+                        })
+                        ->orderBy('name', 'ASC')->get();
             $pilih = 1;
         }
 
         else if($role_id == 3){
-            $classrooms = Classroom::where('semester_id', '=', Setting::find(1)->semester_id)->get();
+            $classrooms = Classroom::where('semester_id', '=', Setting::find(1)->semester_id)
+                          ->orderBy('name', 'ASC')->get();
             $pilih = Setting::find(1)->status_kaprodi;
         }
         
