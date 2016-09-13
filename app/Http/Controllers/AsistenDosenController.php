@@ -100,7 +100,7 @@ class AsistenDosenController extends Controller
                                     ->whereHas('classroom', function($query) use($semester_aktif){
                                         $query->where('semester_id', '=', $semester_aktif);
                                     })
-                                    ->with('classroom')->get();
+                                    ->with('classroom')->orderBy('classroom_id')->get();
         return view('index.AsistenIndex', ['assistants'=>$assistants, 'navbar' => 5]);
     }
 
@@ -148,7 +148,7 @@ class AsistenDosenController extends Controller
         $tmp_data = $assistants = Registrant::where('status', true)
                             ->whereHas('classroom', function($query) use($semester_aktif){
                                 $query->where('semester_id', '=', $semester_aktif);
-                            })->select('NRP', 'name', 'classroom_id')->groupBy('classroom_id')->get();
+                            })->select('NRP', 'name', 'classroom_id')->orderBy('classroom_id')->get();
 
         $data = [];
         $cnt = 1;

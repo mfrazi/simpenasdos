@@ -36,6 +36,7 @@
                 $(".button-collapse").sideNav();
             });
         </script>
+        @include('base.footer')
         @yield('moreScripts')
     </body>
 </html>

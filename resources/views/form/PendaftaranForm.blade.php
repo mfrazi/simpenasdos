@@ -155,7 +155,6 @@
 @endsection
 
 @section('moreScripts')
-    @include('base.footer')
     <script src="{{ URL::asset('js//jquery.validate.min.js') }}"></script>
     <script src="{{ URL::asset('js/additional-methods.min.js') }}"></script>
     <script>
