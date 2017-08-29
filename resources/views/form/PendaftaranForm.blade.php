@@ -49,7 +49,7 @@
         </div>
 
         <div class="input-field col s12 m10 push-m1">
-            <input name="nrp" id="nrp" type="text" data-error=".error-nrp" maxlength="10">
+            <input name="nrp" id="nrp" type="text" data-error=".error-nrp" maxlength="14">
             <label for="nrp">NRP</label>
             <div style="font-style: italic;" class="red-text error-nrp"></div>
         </div>
@@ -189,7 +189,7 @@
                     nrp: {
                         required: true,
                         digits: true,
-                        rangelength: [10,10]
+                        rangelength: [14,14]
                     },
                     phone_number: {
                         required: true
@@ -212,7 +212,7 @@
                     nrp:{
                         required: "Masukkan NRP anda",
                         digits: "Format NRP yang anda masukkan salah",
-                        rangelength: "Panjang NRP harus 10 digit"
+                        rangelength: "Panjang NRP harus 14 digit"
                     },
                     phone_number: {
                         required: "Masukkan nomor HP anda"
