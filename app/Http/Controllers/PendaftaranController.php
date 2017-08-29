@@ -82,7 +82,7 @@ class PendaftaranController extends Controller {
         $registrant = $this->createRegistrant($data, $data['kelas1'], $data['nilai_kelas1']);
         $file_name = (string)$registrant.'transkripxyz.'.$ext;
         $destination_path = storage_path().'/transkrip';
-        if(!$transkrip->move($destination_path, $file_name)){
+        if(null === $transkrip->move($destination_path, $file_name)){
             Session::flash('fail', 'Gagal mengupload file transkrip');
             return redirect()->route('daftar.create');
         }
